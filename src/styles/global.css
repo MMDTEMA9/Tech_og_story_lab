@@ -219,6 +219,7 @@ p {
   font-weight: bold;
 }
 
+/*****måske det skal ind i en anden fil, men det er her jeg har lavet det for nu*****/
 /* STATUS LEDIG OG UDLÅNT */
 .status-ledig {
   display: inline-block; /*sørger for at teksten ikke fylder hele linjen*/
@@ -237,4 +238,38 @@ p {
   color: var(--disco-950-farve);
   font-size: 0.5rem;
   font-weight: bold;
+}
+
+/* Filterknapper */
+.filter_liste {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.filter_knap {
+  padding: 0.5rem 1.25rem;
+  border: 1px solid #d4d4d4;
+  border-radius: 999px;
+  background-color: white;
+  color: var(--disco-950-farve);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Tallet */
+.filter_knap span {
+  margin-left: 0.25rem;
+  color: #8a8a8a;
+}
+
+/* Den valgte knap */
+.filter_knap.aktiv {
+  background-color: var(--disco-950-farve);
+  border-color: var(--disco-950-farve);
+  color: white;
+}
+
+.filter_knap.aktiv span {
+  color: var(--pink-salmon-lyserød);
 }
