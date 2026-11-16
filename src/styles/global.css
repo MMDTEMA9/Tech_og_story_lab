@@ -61,25 +61,24 @@ select,
 }
 /* -- slut reset */
 
+/******* Generelt *******/
 /* Farver */
 :root {
   --baggrundsfarve: #f8f7f1;
-  --brødtekst-farve: #313030;
-  --neon-grøn-farve: #b8f569;
+  --mørkegrå-farve: #313030;
+  --neongrøn-farve: #b8f569;
   --disco-950-farve: #6d003e;
   --pink-salmon-lyserød: #ff8d9d;
 }
 
-/******* Generelt *******/
-
 /* Gradienterb bagrund */
-.gradient_pink-salmon-lyserød/baggrundsfarve {
+.gradient_pink-salmon-lyserød.baggrundsfarve {
   background-image: linear-gradient(180deg, var(--pink-salmon-lyserød), var(--baggrundsfarve));
 }
-.gradient_pink-salmon-lyserød/--disco-950-farve {
+.gradient_pink-salmon-lyserød.--disco-950-farve {
   background-image: linear-gradient(180deg, var(--pink-salmon-lyserød), var(--disco-950-farve));
 }
-.gradient_baggrundsfarve/--disco-950-farve {
+.gradient_baggrundsfarve.--disco-950-farve {
   background-image: linear-gradient(180deg, var(--baggrundsfarve), var(--disco-950-farve));
 }
 .forside_baggrund-footer {
@@ -92,67 +91,119 @@ body {
   background-color: var(--baggrundsfarve);
 }
 
-/* Mobil */
+/****FONT STØRRELSER OG FARVER****/
 
+:root {
+  --h1-font-size: 2.5rem;
+  --h2_special-font-size: 5rem;
+  --h2-font-size: 2rem;
+  --h3-font-size: 1.5rem;
+  --h4-font-size: 1.2rem;
+  --p-font-size: 1rem;
+
+  --p-color: var(--mørkegrå-farve);
+  --h1-color: var(--disco-950-farve);
+  --h2-color: var(--mørkegrå-farve);
+  --h3-color: var(--mørkegrå-farve);
+  --h4-color: var(--disco-950-farve);
+
+  --lineheight: 120%;
+}
+
+/***MOBIL FONTE*****/
 h1 {
-  font-size: 70px;
+  font-size: var(--h1-font-size);
   font-weight: bold;
-  line-height: 120%;
+  line-height: var(--lineheight);
+  color: var(--disco-950-farve);
 }
 h2 {
-  font-size: 100px;
+  font-size: var(--h2-font-size);
   font-weight: bold;
-  line-height: 120%;
+  line-height: var(--lineheight);
+  color: var(--mørkegrå-farve);
 }
+/* Skal bruges til herotekst på forside og detailview (udstyrnavn)*/
+/******************************************************************/
+
 .h2_special_lyserød {
-  font-size: 200px;
+  font-size: var(--h2_special-font-size);
   font-weight: bold;
-  line-height: 120%;
+  line-height: var(--lineheight);
+  color: var(--pink-salmon-lyserød);
 }
 .h2_special_grøn {
-  font-size: 180px;
+  font-size: var(--h2_special-font-size);
   font-weight: bold;
-  line-height: 120%;
+  line-height: var(--lineheight);
+  color: var(--neongrøn-farve);
 }
-/* Skal bruges til herotekst på forside og detailview (udstyr)*/
+/******************************************************************/
 
 h3 {
-  font-size: 70px;
+  font-size: var(--h3-font-size);
   font-weight: bold;
-  line-height: 120%;
-}
-h4 {
-  font-size: 26px;
-  font-weight: italic;
-  line-height: 120%;
-}
-p {
-  color: var(--brødtekst-farve);
+  line-height: var(--lineheight);
+  color: var(--mørkegrå-farve);
 }
 
-/* Desktop */
+h4 {
+  font-size: var(--h4-font-size);
+  font-style: italic;
+  font-weight: bold;
+  line-height: var(--lineheight);
+  color: var(--disco-950-farve);
+}
+p {
+  font-size: var(--p-font-size);
+  line-height: var(--lineheight);
+  color: var(--p-color);
+}
+
+/*****DESKTOP FONTE *****/
 @media (min-width: 1000px) {
   h1 {
     font-size: 150px;
-    font-weight: bold;
-    line-height: 120%;
   }
-  h2 {
-    font-size: 100px;
-    font-weight: bold;
-    line-height: 120%;
-  }
-  h3 {
-    font-size: 70px;
-    font-weight: bold;
-    line-height: 120%;
-  }
-  h4 {
-    font-size: 26px;
-    font-weight: italic;
-    line-height: 120%;
-  }
-  p {
-    color: var(--brødtekst-farve);
-  }
+}
+
+/***MOBIL Knapper*****/
+.knap_kategori,
+.knap_se-udstyr,
+.knap_book-studio {
+  padding: 7px 15px;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+/* MAIN KNAP */
+.knap_se-udstyr {
+  background-color: var(--neongrøn-farve);
+  color: var(--mørkegrå-farve);
+  border: 2px solid var(--neongrøn-farve);
+  font-style: italic;
+  text-transform: uppercase;
+}
+
+/* SEKUNDÆR KNAPPER */
+.knap_kategori {
+  background-color: var(--baggrundsfarve);
+  color: var(--disco-950-farve);
+  border: 2px solid var(--disco-950-farve);
+  font-weight: normal;
+}
+.knap_kategori p {
+  color: var(--disco-950-farve);
+}
+
+.knap_book-studio {
+  background-color: #ff8d9d;
+  color: var(--baggrundsfarve);
+  border: 2px solid #ff8d9d;
+  font-weight: normal;
+}
+.knap_book-studio p {
+  color: var(--disco-950-farve);
+  font-weight: bold;
 }
