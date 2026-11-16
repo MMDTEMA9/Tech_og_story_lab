@@ -1,0 +1,62 @@
+---
+const apiurl = "https://hycvaeerhjimzwdnycyq.supabase.co/rest/v1/";
+//Basis-URL'en til vores Supabase-database. URL'en bruges som start-adresse i både udstyrResponse og kontaktResponse.
+
+const udstyrTableName = "Udstyr";
+const kontaktTableName = "kontakt";
+// Vi har to tabeller og derfor laver i to variabler. 
+
+const key = "sb_publishable_ci0x6ZnxAsDcDBjvVDKdXA_dC-IEzLE"
+// Vores api key som vi har fået fra supabase.
+
+const options = {
+	headers: {
+		apikey: key
+	}
+}
+// Selve objektet, der pakker din API-nøgle ind i en HTTP-header, som Supabase kræver.
+// Options er det JavaScript-objekt, der samler det hele sammen i den struktur, som fetch()-funktionen forventer at modtage. 
+// headers er en standard-beskedboks i HTTP-anmodninger (web-kommunikation), hvor man sender ekstra metadata med, som serveren skal bruge 
+// (f.eks. hvilken type data det er, eller hvem der spørger)
+// Apikey er det navn (nøgle-navn), som Supabase kræver, at du kalder feltet i headeren, for at de kan genkende din nøgle.
+// Key er selve nøglen (adgangskoden/værdien). Den har ingen magt i sig selv, før den bliver sat ind et sted, hvor Supabase forventer at se den.
+
+const udstyrResponse = await fetch(apiurl + udstyrTableName, options);
+const udstyrData = await udstyrResponse.json();
+
+const kontaktResponse = await fetch(apiurl + kontaktTableName, options);
+const kontaktData = await kontaktResponse.json();
+
+console.log("udstyrData", udstyrData);
+console.log("kontaktData", kontaktData);
+
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<link rel="stylesheet" href="/styles/gobal.css" />
+		<title>Astro</title>
+	</head>
+	<body>
+
+	<pagelayout>
+			<!-- <slot /> -->
+		<div>
+			<h2 class="h2_special_lyserød">Tech &</h2>
+			<h2 class="h2_special_grøn">Story Lab</h2>
+		</div>
+		<section>
+			<h1>Tech and Story Lab</h1>
+			<h2>Tech and Story Lab</h2>
+			<h3>Tech and Story Lab</h3>
+			<h4>Tech and Story Lab</h4>
+			<p>Her kan du finde kontaktoplysningerne for Tech and Story Lab:</p>
+		</section>
+	</pagelayout>
+	</body>
+</html>

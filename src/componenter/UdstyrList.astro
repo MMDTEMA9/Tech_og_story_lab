@@ -1,0 +1,12 @@
+---
+const{data} = Astro.props;
+---
+
+<article>
+    <img src={data.image} alt={`Billede af ${data.name}`} />
+    <h3>{data.name}</h3>
+     <h3>{data.category}</h3>
+    {data.pickup ? <p>Ledig</p> : <p>Ikke ledig</p>}
+     <h3>{data.laanetid}</h3>
+    <a href={`/Udstyr/${data.slug}`}>Se udstyr</a>
+</article>

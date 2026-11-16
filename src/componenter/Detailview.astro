@@ -1,0 +1,10 @@
+---
+const{data} = Astro.props;
+---
+
+<article>
+    <img src={data.image} alt={`Billede af ${data.name}`} />
+    <h3>{data.name}</h3>
+    <p>{data.specialist}</p>
+    <a href={`/kontakt/${data.id}`}></a>
+</article>
