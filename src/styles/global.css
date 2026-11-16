@@ -170,7 +170,8 @@ p {
 /***MOBIL Knapper*****/
 .knap_kategori,
 .knap_se-udstyr,
-.knap_book-studio {
+.knap_book-studio,
+.knap_om-os {
   padding: 7px 15px;
   border-radius: 5px;
   font-size: 1rem;
@@ -205,5 +206,35 @@ p {
 }
 .knap_book-studio p {
   color: var(--disco-950-farve);
+  font-weight: bold;
+}
+.knap_om-os {
+  background-color: var(--disco-950-farve);
+  color: var(--baggrundsfarve);
+  border: 2px solid var(--disco-950-farve);
+  font-weight: normal;
+}
+.knap_om-os p {
+  color: var(--baggrundsfarve);
+  font-weight: bold;
+}
+
+/* STATUS LEDIG OG UDLÅNT */
+.status-ledig {
+  display: inline-block; /*sørger for at teksten ikke fylder hele linjen*/
+  padding: 0.25rem 1rem;
+  border-radius: 999px; /* gør at den bliver rund */
+  background-color: var(--neongrøn-farve);
+  color: #325413;
+  font-size: 0.5rem;
+  font-weight: bold;
+}
+.status-udlånt {
+  background-color: #ffccd3;
+  display: inline-block;
+  padding: 0.25rem 1rem;
+  border-radius: 999px;
+  color: var(--disco-950-farve);
+  font-size: 0.5rem;
   font-weight: bold;
 }
