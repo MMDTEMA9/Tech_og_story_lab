@@ -59,6 +59,10 @@ select,
 ::picker(select) {
   appearance: base-select;
 }
+
+body {
+  margin-left: 2rem;
+}
 /* -- slut reset */
 
 /******* Generelt *******/
@@ -163,7 +167,27 @@ p {
 /*****DESKTOP FONTE *****/
 @media (min-width: 1000px) {
   h1 {
-    font-size: 150px;
+    font-size: 3rem;
+  }
+  h2 {
+    font-size: 2.5rem;
+  }
+
+  .h2_special_lyserød {
+    font-size: 4rem;
+  }
+  .h2_special_grøn {
+    font-size: 4rem;
+  }
+  h3 {
+    font-size: 2rem;
+  }
+
+  h4 {
+    font-size: 1.5rem;
+  }
+  p {
+    font-size: 1.2rem;
   }
 }
 
@@ -171,9 +195,10 @@ p {
 .knap_kategori,
 .knap_se-udstyr,
 .knap_book-studio,
-.knap_om-os {
+.knap_om-os,
+.filter_knap {
   padding: 7px 15px;
-  border-radius: 5px;
+  border-radius: 10px;
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
@@ -249,7 +274,6 @@ p {
 .filter_knap {
   padding: 0.3rem 0.75rem;
   border: 1px solid #d4d4d4;
-  border-radius: 999px;
   background-color: white;
   color: var(--disco-950-farve);
   font-size: 0.875rem;
