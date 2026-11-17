@@ -56,8 +56,14 @@ console.log("kontaktData", kontaktData);
   <section class="intro">
     <h1>Hvad er Tech & Story Lab?</h1>
     <p>I Tech & Story Lab kan du eksperimentere med ny teknologi og på egen hånd lære at arbejde med forskelligt udstyr.</p>
-    <Image src={kamera} alt="Kamera, der viser at der bliver udlånt 10.000 stykker udstyr om året" />
+<div class="datavisualisering">
+  <Image src={kamera} alt="Kamera, hvor skærmen viser 10.000 udstyrsudlån om året" />
 
+  <div class="datavisualisering-tekst">
+    <p class="tal">10.000</p>
+    <p><span>studerende om året</span><br />låner udstyr og bruger faciliteterne i labbet.</p>
+  </div>
+</div>
     <h4>Vi har alt lige fra</h4>
     <button class="knap_kategori">Kamera</button>
     <button class="knap_se-udstyr">Se udstyr</button>
@@ -118,6 +124,31 @@ console.log("kontaktData", kontaktData);
     gap: 1rem;
   }
 
+/* ===== MOBIL ===== */
+.datavisualisering-tekst {
+  display: flex;              /* tal og tekst ved siden af hinanden */
+  align-items: flex-start;    /* toppen af teksten flugter med toppen af tallet */
+  gap: 1rem;
+  margin-inline-start: auto;
+}
+
+.tal {
+  font-size: 4rem;
+  font-weight: bold;
+  color: var(--disco-950-farve);
+}
+
+.datavisualisering-tekst p:last-child {
+  padding-top: 1.3rem;        /* skubber teksten lidt ned, så den flugter med tallet */
+  max-width: 20ch;            /* styrer hvor teksten brydes */
+  line-height: 1.5;
+}
+
+.datavisualisering-tekst span {
+  font-weight: bold;
+  color: var(--disco-950-farve);
+}
+
   /* ===== DESKTOP ===== */
   @media (min-width: 1000px) {
 
@@ -163,5 +194,8 @@ console.log("kontaktData", kontaktData);
     .intro {
       padding: 4rem 10%;
     }
+      .tal {
+    font-size: 7rem;
+  }
   }
 </style>

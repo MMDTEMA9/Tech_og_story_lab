@@ -1,68 +1,129 @@
 ---
-const { headline, text } = Astro.props;
+// Henter Astros billedværktøj og vores logo
 import { Image } from "astro:assets";
 import logo from "../assets/logo.webp";
 ---
 
 <header>
   <nav>
+    <!-- Logoet linker til forsiden -->
     <a href="/">
-        <Image src={logo} alt="Tech & Story Lab – til forsiden" class="logo" />
-      </a>
+      <Image src={logo} alt="Tech & Story Lab – til forsiden" class="logo" />
+    </a>
 
-  <ul>
-    <li><a href="/udstyrsliste">Udstyr</a></li>
-    <li><a href="/kontaktliste">Kontakt</a></li>
-  </ul>
-</nav>
+    <!-- Burger-knappen. De tre span'er bliver til de tre streger -->
+    <button class="burger" aria-label="Åbn menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
 
-
+    <!-- Selve menuen -->
+    <ul class="menu">
+      <li><a href="/udstyrsliste">Udstyr</a></li>
+      <li><a href="/kontaktliste">Kontakt</a></li>
+    </ul>
+  </nav>
 </header>
 
+
+
 <style>
-header {
-  background-color: var(--baggrundsfarve);
-  padding: 1rem 2rem;
-  border-bottom: 2px solid var(--pink-salmon-lyserød);
-}
+  /* ===== MOBIL ===== */
+  header {
+    background-color: var(--baggrundsfarve);
+    padding: 1rem;
+    border-bottom: 2px solid var(--pink-salmon-lyserød);
+  }
 
-/* Menuen */
-ul {
-  list-style: none;
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-}
+  nav {
+    display: flex;
+    justify-content: space-between; /* logo til venstre, burger til højre */
+    align-items: center;
+    flex-wrap: wrap; /* menuen kan lægge sig på en ny linje under logo og burger */
+  }
 
-.logo {
-  width: 120px;
-}
+  .logo {
+    width: 80px;
+  }
 
-ul a {
-  color: var(--mørkegrå-farve);
-  font-weight: bold;
-  text-decoration: none;
-  text-transform: uppercase;
-  padding: 0.3rem 0.8rem;
-  border-radius: 10px;
-}
+  /* Burger-knappen: tre streger under hinanden */
+  .burger {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+  }
 
-ul a:hover {
-  background-color: var(--disco-950-farve);
-  color: var(--baggrundsfarve);
-}
+  .burger span {
+    display: block;
+    width: 28px;
+    height: 3px;
+    background-color: var(--disco-950-farve);
+    border-radius: 3px;
+  }
 
-/* Overskrift og tekst under menuen */
-h1 {
-  font-size: 2rem;
-  color: var(--disco-950-farve);
-  margin-top: 2rem;
-  margin-bottom: 0.5rem;
-}
+  /* Menuen er skjult på mobil... */
+  .menu {
+    display: none;
+    width: 100%;
+    list-style: none;
+    flex-direction: column;
+    gap: 1rem;
+    padding-top: 1rem;
+  }
 
-p {
-  font-size: 1.2rem;
-  color: var(--mørkegrå-farve);
-  margin-bottom: 1rem;
-}
+  /* ...indtil den får klassen "aaben" */
+  .menu.aaben {
+    display: flex;
+  }
+
+  .menu a {
+    color: var(--mørkegrå-farve);
+    font-weight: bold;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .menu a:hover {
+    color: var(--disco-950-farve);
+  }
+
+  /* ===== DESKTOP ===== */
+  @media (min-width: 1000px) {
+    header {
+      padding: 1rem 2rem;
+    }
+
+    .logo {
+      width: 120px;
+    }
+
+    /* Burgeren skjules */
+    .burger {
+      display: none;
+    }
+
+    .menu {
+      display: flex;
+      flex-direction: space-between;
+      width: auto;
+      gap: 2rem;
+      padding-top: 0;
+    }
+  }
 </style>
+
+<!-- /*BURGERMENU*/ -->
+<script>
+  // Finder burger-knappen og menuen
+  const burger = document.querySelector(".burger");
+  const menu = document.querySelector(".menu");
+
+  // Når man klikker på burgeren, tilføjes eller fjernes klassen "aaben"
+  burger.addEventListener("click", () => {
+    menu.classList.toggle("aaben");
+  });
+</script>
