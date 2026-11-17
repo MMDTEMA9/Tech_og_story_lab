@@ -16,6 +16,7 @@ import herobillede from "../assets/udstyr.webp";
 import maskot1 from "../assets/maskot1.webp";
 import maskot2 from "../assets/maskot2.webp";
 import kamera from "../assets/kamera-10000.webp";
+import arcade from "../assets/arcade.webp";
 
 const apiurl = "https://hycvaeerhjimzwdnycyq.supabase.co/rest/v1/";
 // Basis-URL'en til vores Supabase-database. URL'en bruges som start-adresse i både udstyrResponse og kontaktResponse.
@@ -43,70 +44,90 @@ console.log("udstyrData", udstyrData);
 console.log("kontaktData", kontaktData);
 ---
 
+<!-- PageLayout er rammen. Alt mellem <PageLayout> og </PageLayout> kommer ind ved <slot /> i PageLayout.astro -->
 <PageLayout title="Forside">
+  <section class="forside">
 
-  <section class="hero">
-    <h2 class="h2_special_lyserød">TECH &</h2>
-    <Image src={maskot1} alt="" class="maskot1" />
-    <Image src={herobillede} alt="Kamera, mikrofon, computer og høretelefoner" class="udstyr" />
-    <Image src={maskot2} alt="" class="maskot2" />
-    <h2 class="h2_special_grøn">STORY LAB</h2>
+    <section class="hero">
+      <h2 class="h2_special_lyserød">TECH &</h2>
+      <Image src={maskot1} alt="" class="maskot1" />
+      <Image src={herobillede} alt="Kamera, mikrofon, computer og høretelefoner" class="udstyr" />
+      <Image src={maskot2} alt="" class="maskot2" />
+      <h2 class="h2_special_grøn">STORY LAB</h2>
+    </section>
+
+    <section class="intro">
+      <h1>Hvad er Tech & Story Lab?</h1>
+      <p>I Tech & Story Lab kan du eksperimentere med ny teknologi og på egen hånd lære at arbejde med forskelligt udstyr.</p>
+
+      <div class="datavisualisering">
+        <Image src={kamera} alt="Kamera, hvor skærmen viser 10.000 udstyrsudlån om året" />
+
+        <div class="datavisualisering-tekst">
+          <p class="tal">10.000</p>
+          <p><span>studerende om året</span><br />låner udstyr og bruger faciliteterne i labbet.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="sektion2">
+      <h4>Vi har alt lige fra:</h4>
+
+      <!-- Det efter kategori= skal være præcis som category i Supabase.
+           Altså: Kamera, Lyd, Lys, Tripods, monopods og andre stativer, Kamerastabilisator -->
+      <div class="kategorier">
+        <a href="/udstyrsliste?kategori=Kamera" class="knap_kategori">Kameraer</a>
+        <a href="/udstyrsliste?kategori=Lyd" class="knap_kategori">Mikrofoner</a>
+        <a href="/udstyrsliste?kategori=Lys" class="knap_kategori">Lysudstyr</a>
+        <a href="/udstyrsliste?kategori=Tripods, monopods og andre stativer" class="knap_kategori">Tripods</a>
+        <a href="/udstyrsliste?kategori=Kamerastabilisator" class="knap_kategori">Kamera Stabilisers</a>
+
+        <!-- "Se udstyr" har ingen ?kategori=, så den viser alt -->
+        <a href="/udstyrsliste" class="knap_se-udstyr">Se udstyr</a>
+      </div>
+    </section>
+
+    <section class="sektion3 gradient_neongrøn-baggrundsfarve">
+      <div>
+        <h3>Husk dit studiekort</h3>
+        <p>For at låne udstyr og bruge vores faciliteter <br>skal du have <span class="rødtekst">dit studiekort</span> med. <br>
+Kortet <span class="rødtekst">skal være gyldigt</span> og må kun bruges af kortets ejer.</p>
+      </div>
+      <div>
+        <h3>Åbningstider:</h3>
+        <p>Mandag–torsdag: kl 9-16</p>
+        <p>Fredag: kl 9-15</p>
+      </div>
+      <Image src={arcade} alt="Arcade-maskine med Tech & Story Lab-design" class="arcade" />
+    </section>
+
   </section>
-
-  <section class="intro">
-    <h1>Hvad er Tech & Story Lab?</h1>
-    <p>I Tech & Story Lab kan du eksperimentere med ny teknologi og på egen hånd lære at arbejde med forskelligt udstyr.</p>
-<div class="datavisualisering">
-  <Image src={kamera} alt="Kamera, hvor skærmen viser 10.000 udstyrsudlån om året" />
-
-  <div class="datavisualisering-tekst">
-    <p class="tal">10.000</p>
-    <p><span>studerende om året</span><br />låner udstyr og bruger faciliteterne i labbet.</p>
-  </div>
-</div>
-    <h4>Vi har alt lige fra</h4>
-
-    <!-- Det efter kategori= skal være præcis som category i Supabase.
-     altså: Kamera, Lyd, Lys, Tripods, Kamerastabilisator -->
-<div class="kategorier">
-  <a href="/udstyrsliste?kategori=Kamera" class="knap_kategori">Kameraer</a>
-  <a href="/udstyrsliste?kategori=Lyd" class="knap_kategori">Mikrofoner</a>
-  <a href="/udstyrsliste?kategori=Lys" class="knap_kategori">Lysudstyr</a>
-<a href="/udstyrsliste?kategori=Tripods, monopods og andre stativer" class="knap_kategori">Tripods</a>  <a href="/udstyrsliste?kategori=Kamerastabilisator" class="knap_kategori">Kamera Stabilisers</a>
-</div>
-<!-- “Se udstyr” har ingen ?kategori=, så den viser alt. -->
-<a href="/udstyrsliste" class="knap_se-udstyr">Se udstyr</a>
-  </section>
-
-  <!-- /*pagelayoyt er det der udfyldes for slot i vores pagelaayout.astro */ -->
 </PageLayout>
 
-<!-- css styiling for index -->
+<!-- CSS-styling for forsiden -->
 <style>
+  /* ===== MOBIL ===== */
 
- .hero {
-  position: relative; /* gør det muligt at placere ting frit i hero-sektionen 
-  her gælder det vores typografi og maskotter*/
-  background-color: var(--disco-950-farve);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  padding: 3rem 1rem;
-  text-align: center;
-}
-   .hero .h2_special_lyserød {
-      position: absolute;
-      top: 5%;
-      left: 5%;
-    }
+  /* Luft til kanterne på alle sektioner under hero.
+     Paddingen sidder på sektionen selv, så en baggrundsfarve går helt ud til kanten */
+  .intro,
+  .sektion2,
+  .sektion3 {
+    padding: 2rem 1rem;
+  }
 
-    .hero .h2_special_grøn {
-      position: absolute;
-      bottom: 5%;
-      right: 5%;
-    }
+  /* --- HERO --- */
+  .hero {
+    position: relative; /* gør det muligt at placere maskotterne frit i hero-sektionen */
+    background-color: var(--disco-950-farve);
+    display: flex;
+    flex-direction: column; /* på mobil står tingene under hinanden */
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 3rem 1rem;
+    text-align: center;
+  }
 
   .udstyr {
     width: 90%;
@@ -115,62 +136,106 @@ console.log("kontaktData", kontaktData);
   /* Figurerne sidder i hjørnerne */
   .maskot1 {
     position: absolute;
-    top: 2%; /* 2% fra toppen af hero-sektionen */
-    right: 2%;/* 2% fra højre side af hero-sektionen */
+    top: 2%;   /* 2% fra toppen af hero-sektionen */
+    right: 2%; /* 2% fra højre side af hero-sektionen */
     width: 20%;
   }
 
   .maskot2 {
     position: absolute;
     bottom: 2%; /* 2% fra bunden af hero-sektionen */
-    left: 2%;/* 2% fra venstre side af hero-sektionen */
+    left: 2%;   /* 2% fra venstre side af hero-sektionen */
     width: 20%;
   }
 
-  /* Sektionen under hero */
+  /* --- INTRO --- */
   .intro {
-    padding: 2rem 1rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;
   }
 
-.datavisualisering-tekst {
-  display: flex;              /* tal og tekst ved siden af hinanden */
-  align-items: flex-start;    /* toppen af teksten flugter med toppen af tallet */
-  gap: 1rem;
-  margin-inline-start: auto;
-}
+  .datavisualisering-tekst {
+    display: flex;           /* tal og tekst ved siden af hinanden */
+    align-items: flex-start; /* toppen af teksten flugter med toppen af tallet */
+    gap: 1rem;
+    margin-inline-start: auto;
+  }
 
-.tal {
-  font-size: 4rem;
-  font-weight: bold;
-  color: var(--disco-950-farve);
-}
+  .tal {
+    font-size: 4rem;
+    font-weight: bold;
+    line-height: 1; /* fjerner ekstra luft over og under tallet */
+    color: var(--disco-950-farve);
+  }
 
-.datavisualisering-tekst p:last-child {
-  padding-top: 1.3rem;    /* skubber teksten lidt ned, så den flugter med tallet */
-  max-width: 20ch;            /* styrer hvor teksten brydes */
-  line-height: 1.5;
-}
+  .datavisualisering-tekst p:last-child {
+    padding-top: 1.3rem; /* skubber teksten lidt ned, så den flugter med tallet */
+    max-width: 20ch;     /* styrer hvor teksten brydes */
+    line-height: 1.5;
+  }
 
-.datavisualisering-tekst span {
-  font-weight: bold;
-  color: var(--disco-950-farve);
-}
+  .datavisualisering-tekst span {
+    font-weight: bold;
+    color: var(--disco-950-farve);
+  }
 
-.kategorier {
+  /* --- SEKTION 2: kategorier --- */
+  .sektion2 h4 {
+    margin-bottom: 1rem;
+  }
+
+  .kategorier {
+    display: flex;
+    flex-wrap: wrap; /* knapperne hopper ned på næste linje, hvis der ikke er plads */
+    gap: 0.75rem;
+  }
+
+  /* --- SEKTION 3: studiekort og åbningstider --- */
+  .sektion3 {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
+  flex-direction: column;
+  gap: 2rem;
+  padding-bottom: 0;/* ingen luft i bunden, så billedet kan stå helt nede */
 }
-  /* ===== DESKTOP ===== */
+
+/* Luften i bunden ligger nu på teksten i stedet */
+.sektion3 div {
+  padding-bottom: 1rem;
+}
+
+.arcade {
+margin-top: -8rem;  /* trækker billedet op ved siden af åbningstiderne */
+margin-right: 2rem; /*skubber billedet lidt væk fra højre kant */
+width: 30%; /* styrer hvor stort billedet skal være */
+align-self: flex-end;   /* billedet til højret */
+}
+
+  .intro,
+  .sektion2,
+  .sektion3 {
+    margin-top: 3rem; /* luft mellem sektionerne */
+    margin-bottom: 1rem;/* luft mellem sektionerne */
+  
+  }
+
+  .rødtekst {
+  color: var(--disco-950-farve);
+  font-weight: bold;
+}
+
   @media (min-width: 1000px) {
+
+    .intro,
+    .sektion2,
+    .sektion3 {
+      padding: 4rem 2rem; /
+    }
 
     /* Hero: tingene placeres frit som i designet */
     .hero {
       display: block; /* fjerner flexbox, så vi kan placere tingene frit */
-      height: 100vh; /* hero-sektionen fylder hele skærmen, vh står for viewport height */
+      height: 100vh;  /* hero-sektionen fylder hele skærmen. vh står for viewport height */
       padding: 0;
     }
 
@@ -206,11 +271,15 @@ console.log("kontaktData", kontaktData);
       width: 15%;
     }
 
-    .intro {
-      padding: 4rem 10%;
+    .tal {
+      font-size: 7rem;
     }
-      .tal {
-    font-size: 7rem;
-  }
+
+    /* Studiekort og åbningstider ved siden af hinanden */
+    .sektion3 {
+      flex-direction: row;
+      gap: 5rem;
+      padding-bottom: 6rem;
+    }
   }
 </style>

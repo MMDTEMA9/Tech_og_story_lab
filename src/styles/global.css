@@ -92,6 +92,9 @@ select,
 .info_bagrundsfarve {
   background-image: linear-gradient(180deg, var(--neongrøn-farve), var(--baggrundsfarve), var(--disco-950-farve));
 }
+.gradient_neongrøn-baggrundsfarve {
+  background-image: linear-gradient(180deg, var(--neongrøn-farve), var(--baggrundsfarve));
+}
 body {
   background-color: var(--baggrundsfarve);
 }
