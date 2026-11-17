@@ -20,7 +20,7 @@ import kamera from "../assets/kamera-10000.webp";
 const apiurl = "https://hycvaeerhjimzwdnycyq.supabase.co/rest/v1/";
 // Basis-URL'en til vores Supabase-database. URL'en bruges som start-adresse i både udstyrResponse og kontaktResponse.
 
-const udstyrTableName = "Udstyr";
+const udstyrTableName = "udstyr";
 const kontaktTableName = "kontakt";
 // Vi har to tabeller, og derfor laver vi to variabler.
 
@@ -65,17 +65,28 @@ console.log("kontaktData", kontaktData);
   </div>
 </div>
     <h4>Vi har alt lige fra</h4>
-    <button class="knap_kategori">Kamera</button>
-    <button class="knap_se-udstyr">Se udstyr</button>
+
+    <!-- Det efter kategori= skal være præcis som category i Supabase.
+     altså: Kamera, Lyd, Lys, Tripods, Kamerastabilisator -->
+<div class="kategorier">
+  <a href="/udstyrsliste?kategori=Kamera" class="knap_kategori">Kameraer</a>
+  <a href="/udstyrsliste?kategori=Lyd" class="knap_kategori">Mikrofoner</a>
+  <a href="/udstyrsliste?kategori=Lys" class="knap_kategori">Lysudstyr</a>
+<a href="/udstyrsliste?kategori=Tripods, monopods og andre stativer" class="knap_kategori">Tripods</a>  <a href="/udstyrsliste?kategori=Kamerastabilisator" class="knap_kategori">Kamera Stabilisers</a>
+</div>
+<!-- “Se udstyr” har ingen ?kategori=, så den viser alt. -->
+<a href="/udstyrsliste" class="knap_se-udstyr">Se udstyr</a>
   </section>
 
+  <!-- /*pagelayoyt er det der udfyldes for slot i vores pagelaayout.astro */ -->
 </PageLayout>
 
+<!-- css styiling for index -->
 <style>
-  /* ===== MOBIL ===== */
 
  .hero {
-  position: relative;
+  position: relative; /* gør det muligt at placere ting frit i hero-sektionen 
+  her gælder det vores typografi og maskotter*/
   background-color: var(--disco-950-farve);
   display: flex;
   flex-direction: column;
@@ -104,15 +115,15 @@ console.log("kontaktData", kontaktData);
   /* Figurerne sidder i hjørnerne */
   .maskot1 {
     position: absolute;
-    top: 2%;
-    right: 2%;
+    top: 2%; /* 2% fra toppen af hero-sektionen */
+    right: 2%;/* 2% fra højre side af hero-sektionen */
     width: 20%;
   }
 
   .maskot2 {
     position: absolute;
-    bottom: 2%;
-    left: 2%;
+    bottom: 2%; /* 2% fra bunden af hero-sektionen */
+    left: 2%;/* 2% fra venstre side af hero-sektionen */
     width: 20%;
   }
 
@@ -124,7 +135,6 @@ console.log("kontaktData", kontaktData);
     gap: 1rem;
   }
 
-/* ===== MOBIL ===== */
 .datavisualisering-tekst {
   display: flex;              /* tal og tekst ved siden af hinanden */
   align-items: flex-start;    /* toppen af teksten flugter med toppen af tallet */
@@ -139,7 +149,7 @@ console.log("kontaktData", kontaktData);
 }
 
 .datavisualisering-tekst p:last-child {
-  padding-top: 1.3rem;        /* skubber teksten lidt ned, så den flugter med tallet */
+  padding-top: 1.3rem;    /* skubber teksten lidt ned, så den flugter med tallet */
   max-width: 20ch;            /* styrer hvor teksten brydes */
   line-height: 1.5;
 }
@@ -149,13 +159,18 @@ console.log("kontaktData", kontaktData);
   color: var(--disco-950-farve);
 }
 
+.kategorier {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
   /* ===== DESKTOP ===== */
   @media (min-width: 1000px) {
 
     /* Hero: tingene placeres frit som i designet */
     .hero {
-      display: block;
-      height: 100vh;
+      display: block; /* fjerner flexbox, så vi kan placere tingene frit */
+      height: 100vh; /* hero-sektionen fylder hele skærmen, vh står for viewport height */
       padding: 0;
     }
 
@@ -175,7 +190,7 @@ console.log("kontaktData", kontaktData);
       position: absolute;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%); /* centrerer billedet både lodret og vandret */
       width: 50%;
     }
 
