@@ -262,6 +262,12 @@ p {
   font-weight: bold;
 }
 
+.knap_om-os:hover {
+  background-color: var(--mørkegrå-farve);
+  color: var(--baggrundsfarve);
+  border: 2px solid var(--mørkegrå-farve);
+  font-weight: normal;
+}
 /*****måske det skal ind i en anden fil, men det er her jeg har lavet det for nu*****/
 /* STATUS LEDIG OG UDLÅNT */
 .status-ledig {
