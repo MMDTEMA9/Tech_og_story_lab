@@ -62,9 +62,9 @@ select,
 
 /* -- slut reset */
 
-/* H-elemer laves kun i global.css */
-/* Det lavet class til til bagrunde, samt variabler til farver */
-/* ALT DETTE TING MÅ UNDE ÆNDRES OG LAVES I GLOBAL */
+/* H-elementer laves kun i global.css */
+/* Der er lavet classes til baggrunde, samt variabler til farver */
+/* ALT DETTE MÅ IKKE ÆNDRES OG LAVES KUN I GLOBAL */
 
 /******* Generelt *******/
 /* Farver */
@@ -76,7 +76,7 @@ select,
   --pink-salmon-lyserød: #ff8d9d;
 }
 
-/* Gradienterb bagrund */
+/* Gradient-baggrunde */
 .gradient_pink-salmon-lyserød.baggrundsfarve {
   background-image: linear-gradient(180deg, var(--pink-salmon-lyserød), var(--baggrundsfarve));
 }
@@ -90,7 +90,7 @@ select,
   background-image: linear-gradient(180deg, var(--baggrundsfarve), var(--pink-salmon-lyserød), var(--disco-950-farve));
 }
 .info_bagrundsfarve {
-  background-image: linear-gradient(180deg, var(--neon-grøn-farve), var(--baggrundsfarve), var(--disco-950-farve));
+  background-image: linear-gradient(180deg, var(--neongrøn-farve), var(--baggrundsfarve), var(--disco-950-farve));
 }
 body {
   background-color: var(--baggrundsfarve);
@@ -100,7 +100,7 @@ body {
 
 :root {
   --h1-font-size: 2.5rem;
-  --h2_special-font-size: 5rem;
+  --h2_special-font-size: 3rem;
   --h2-font-size: 2rem;
   --h3-font-size: 1.5rem;
   --h4-font-size: 1.2rem;
@@ -118,36 +118,31 @@ body {
 /***MOBIL FONTE*****/
 h1 {
   font-family: "oso-serif-semicondensed", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  font-weight: 700;
-  font-style: normal;
   font-size: var(--h1-font-size);
   font-weight: bold;
+  font-style: normal;
   line-height: var(--lineheight);
-  color: var(--disco-950-farve);
+  color: var(--h1-color);
 }
 h2 {
   font-family: "oso-serif-semicondensed", sans-serif;
   font-size: var(--h2-font-size);
   font-weight: bold;
   line-height: var(--lineheight);
-  color: var(--mørkegrå-farve);
+  color: var(--h2-color);
 }
-/* Skal bruges til herotekst på forside og detailview (udstyrnavn)*/
-/******************************************************************/
 
+/* Skal bruges til herotekst på forside og detailview (udstyrsnavn) */
+/* Kun udseende her – placeringen laves på den side, hvor klassen bruges */
+/******************************************************************/
 .h2_special_lyserød {
   font-family: "oso-serif-semicondensed", sans-serif;
-
   font-size: var(--h2_special-font-size);
   font-weight: bold;
   line-height: var(--lineheight);
   color: var(--pink-salmon-lyserød);
   text-shadow: 0 0 40px var(--pink-salmon-lyserød);
-  position: absolute;
-  top: 5%;
-  right: 60%;
+  white-space: nowrap; /* forhindrer at teksten brydes til næste linje */
 }
 .h2_special_grøn {
   font-family: "oso-serif-semicondensed", sans-serif;
@@ -156,37 +151,33 @@ h2 {
   line-height: var(--lineheight);
   color: var(--neongrøn-farve);
   text-shadow: 0 0 40px var(--neongrøn-farve);
-  position: absolute;
-  top: 75%;
-  left: 40%;
+  white-space: nowrap; /* forhindrer at teksten brydes til næste linje */
 }
 /******************************************************************/
 
 h3 {
   font-family: "oso-sans", sans-serif;
-  font-weight: 400;
-  font-style: normal;
   font-size: var(--h3-font-size);
   font-weight: bold;
+  font-style: normal;
   line-height: var(--lineheight);
-  color: var(--mørkegrå-farve);
+  color: var(--h3-color);
 }
 
 h4 {
   font-family: "oso-sans", sans-serif;
-  font-weight: 400;
-  font-style: normal;
   font-size: var(--h4-font-size);
-  font-style: italic;
   font-weight: bold;
+  font-style: italic;
   line-height: var(--lineheight);
-  color: var(--disco-950-farve);
+  color: var(--h4-color);
 }
+
 p {
   font-family: "oso-sans", sans-serif;
+  font-size: var(--p-font-size);
   font-weight: 400;
   font-style: normal;
-  font-size: var(--p-font-size);
   line-height: var(--lineheight);
   color: var(--p-color);
 }
@@ -203,6 +194,7 @@ p {
   font-weight: bold;
   cursor: pointer;
 }
+
 /* MAIN KNAP */
 .knap_se-udstyr {
   background-color: var(--neongrøn-farve);
@@ -211,15 +203,13 @@ p {
   font-style: italic;
   text-transform: uppercase;
 }
-
 .knap_se-udstyr:hover {
   background-color: #ffccd3;
   color: var(--disco-950-farve);
   border: 2px solid var(--disco-950-farve);
-  font-style: italic;
-  text-transform: uppercase;
 }
-/* SEKUNDÆR KNAPPER */
+
+/* SEKUNDÆRE KNAPPER */
 .knap_kategori {
   background-color: var(--baggrundsfarve);
   color: var(--disco-950-farve);
@@ -232,13 +222,12 @@ p {
 .knap_kategori:hover {
   background-color: var(--disco-950-farve);
   color: var(--baggrundsfarve);
-  border: 2px solid var(--disco-950-farve);
-  font-weight: normal;
 }
+
 .knap_book-studio {
-  background-color: #ff8d9d;
+  background-color: var(--pink-salmon-lyserød);
   color: var(--baggrundsfarve);
-  border: 2px solid #ff8d9d;
+  border: 2px solid var(--pink-salmon-lyserød);
   font-weight: normal;
 }
 .knap_book-studio p {
@@ -247,10 +236,9 @@ p {
 }
 .knap_book-studio:hover {
   background-color: #f83b5e;
-  color: var(--baggrundsfarve);
   border: 2px solid #f83b5e;
-  font-weight: normal;
 }
+
 .knap_om-os {
   background-color: var(--disco-950-farve);
   color: var(--baggrundsfarve);
@@ -261,17 +249,14 @@ p {
   color: var(--baggrundsfarve);
   font-weight: bold;
 }
-
 .knap_om-os:hover {
   background-color: var(--mørkegrå-farve);
-  color: var(--baggrundsfarve);
   border: 2px solid var(--mørkegrå-farve);
-  font-weight: normal;
 }
-/*****måske det skal ind i en anden fil, men det er her jeg har lavet det for nu*****/
+
 /* STATUS LEDIG OG UDLÅNT */
 .status-ledig {
-  display: inline-block; /*sørger for at teksten ikke fylder hele linjen*/
+  display: inline-block; /* sørger for at teksten ikke fylder hele linjen */
   padding: 0.25rem 1rem;
   border-radius: 999px; /* gør at den bliver rund */
   background-color: var(--neongrøn-farve);
@@ -280,29 +265,27 @@ p {
   font-weight: bold;
 }
 .status-udlånt {
-  background-color: #ffccd3;
   display: inline-block;
   padding: 0.25rem 1rem;
   border-radius: 999px;
+  background-color: #ffccd3;
   color: var(--disco-950-farve);
   font-size: 0.5rem;
   font-weight: bold;
 }
+
 /* Filterknapper */
 .filter_liste {
   display: flex;
   flex-wrap: wrap; /* gør at knapperne går ned på næste linje hvis de ikke kan være på samme linje */
   gap: 0.375rem;
 }
-
 .filter_knap {
   padding: 0.3rem 0.75rem;
   border: 1px solid #d4d4d4;
   background-color: white;
   color: var(--disco-950-farve);
   font-size: 0.875rem;
-  font-weight: bold;
-  cursor: pointer;
 }
 
 /* Tallet */
@@ -317,38 +300,35 @@ p {
   border-color: var(--disco-950-farve);
   color: white;
 }
-
 .filter_knap.aktiv span {
   color: var(--pink-salmon-lyserød);
 }
+
+/***** DESKTOP *****/
 @media (min-width: 1000px) {
+  /* Filter knapper */
   .filter_liste {
     gap: 0.5rem;
   }
-
   .filter_knap {
     padding: 0.5rem 1.25rem;
     font-size: 1rem;
   }
-  /*****DESKTOP FONTE *****/
 
+  /* Fonte */
   h1 {
     font-size: 4.5rem;
   }
   h2 {
     font-size: 3rem;
   }
-
-  .h2_special_lyserød {
-    font-size: 10rem;
-  }
+  .h2_special_lyserød,
   .h2_special_grøn {
     font-size: 10rem;
   }
   h3 {
     font-size: 2.5rem;
   }
-
   h4 {
     font-size: 2rem;
   }

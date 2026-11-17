@@ -1,40 +1,37 @@
 ---
+/* Importerer PageLayout, som er vores layout for alle siderne.
+   Det er her, vi har header, footer og global.css. */
 import PageLayout from "../layouts/PageLayout.astro";
 
-import css from "../styles/global.css"
-/*importerer PageLayout som er vores layout for alle siderne. Det er her vi har header og footer.*/
+/* Hvorfor skriver man import på 2 forskellige måder?
+   Fordi det er to forskellige slags ting:
+   - Noget fra Astro (et værktøj):   import { Navn } from "astro:..."
+   - Vores egne filer (billede, komponent, layout):   import Navn from "../mappe/fil" */
 
-
-/*vhvorfor man skriver import på 2 forskellige måder?
-SVAR: fordi det er to forskellige slags ting, og så skrives importen forskelligt.
-
-Hvad henter du?	
-Noget fra Astro (et værktøj)	import { Navn } from "astro:..."*/
-
+// Astros værktøj til at vise billeder
 import { Image } from "astro:assets";
 
-/*henter billederne ind fra assets mappen*/
-/*vores egen filler (billede, komponent, layout)	import Navn from "../mappe/fil"*/
-/*henter billederne ind fra assets mappen*/
-import herobillede from "../assets/herobillede.png";
-import maskot from "../assets/maskot.png";
-import maskot2 from "../assets/maskot2.png";
+// Vores egne billeder fra assets-mappen
+import herobillede from "../assets/udstyr.webp";
+import maskot1 from "../assets/maskot1.webp";
+import maskot2 from "../assets/maskot2.webp";
+import kamera from "../assets/kamera-10000.webp";
 
 const apiurl = "https://hycvaeerhjimzwdnycyq.supabase.co/rest/v1/";
-//Basis-URL'en til vores Supabase-database. URL'en bruges som start-adresse i både udstyrResponse og kontaktResponse.
+// Basis-URL'en til vores Supabase-database. URL'en bruges som start-adresse i både udstyrResponse og kontaktResponse.
 
 const udstyrTableName = "Udstyr";
 const kontaktTableName = "kontakt";
-// Vi har to tabeller og derfor laver i to variabler. 
+// Vi har to tabeller, og derfor laver vi to variabler.
 
-const key = "sb_publishable_ci0x6ZnxAsDcDBjvVDKdXA_dC-IEzLE"
-// Vores api key som vi har fået fra supabase.
+const key = "sb_publishable_ci0x6ZnxAsDcDBjvVDKdXA_dC-IEzLE";
+// Vores API-nøgle, som vi har fået fra Supabase.
 
 const options = {
 	headers: {
 		apikey: key
 	}
-}
+};
 
 const udstyrResponse = await fetch(apiurl + udstyrTableName, options);
 const udstyrData = await udstyrResponse.json();
@@ -50,44 +47,121 @@ console.log("kontaktData", kontaktData);
 
   <section class="hero">
     <h2 class="h2_special_lyserød">TECH &</h2>
-    <Image src={maskot} alt="chrome illustration af kamera" class="maskot1" />
-    <Image src={herobillede} alt=" Billede af kameraudstyr" class="udstyr" />
-    <Image src={maskot2} alt="chrome illustration af kamera" class="maskot2" />
+    <Image src={maskot1} alt="" class="maskot1" />
+    <Image src={herobillede} alt="Kamera, mikrofon, computer og høretelefoner" class="udstyr" />
+    <Image src={maskot2} alt="" class="maskot2" />
     <h2 class="h2_special_grøn">STORY LAB</h2>
   </section>
 
-  <button class="knap_se-udstyr">Se udstyr</button>
-  <button class="knap_kategori">Om os</button>
-  <button class="knap_book-studio">Book studio</button>
+  <section class="intro">
+    <h1>Hvad er Tech & Story Lab?</h1>
+    <p>I Tech & Story Lab kan du eksperimentere med ny teknologi og på egen hånd lære at arbejde med forskelligt udstyr.</p>
+    <Image src={kamera} alt="Kamera, der viser at der bliver udlånt 10.000 stykker udstyr om året" />
+
+    <h4>Vi har alt lige fra</h4>
+    <button class="knap_kategori">Kamera</button>
+    <button class="knap_se-udstyr">Se udstyr</button>
+  </section>
 
 </PageLayout>
 
 <style>
-  .hero {
-    position: relative;
-    height: 100vh;
-    background-color: var(--disco-950-farve);
-  }
+  /* ===== MOBIL ===== */
+
+ .hero {
+  position: relative;
+  background-color: var(--disco-950-farve);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 3rem 1rem;
+  text-align: center;
+}
+   .hero .h2_special_lyserød {
+      position: absolute;
+      top: 5%;
+      left: 5%;
+    }
+
+    .hero .h2_special_grøn {
+      position: absolute;
+      bottom: 5%;
+      right: 5%;
+    }
 
   .udstyr {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 50%;
+    width: 90%;
   }
 
+  /* Figurerne sidder i hjørnerne */
   .maskot1 {
     position: absolute;
-    top: 5%;
-    right: 5%;
-    width: 15%;
+    top: 2%;
+    right: 2%;
+    width: 20%;
   }
 
   .maskot2 {
     position: absolute;
     bottom: 2%;
-    left: 5%;
-    width: 15%;
+    left: 2%;
+    width: 20%;
+  }
+
+  /* Sektionen under hero */
+  .intro {
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  /* ===== DESKTOP ===== */
+  @media (min-width: 1000px) {
+
+    /* Hero: tingene placeres frit som i designet */
+    .hero {
+      display: block;
+      height: 100vh;
+      padding: 0;
+    }
+
+    .hero .h2_special_lyserød {
+      position: absolute;
+      top: 5%;
+      left: 5%;
+    }
+
+    .hero .h2_special_grøn {
+      position: absolute;
+      bottom: 5%;
+      right: 5%;
+    }
+
+    .udstyr {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 50%;
+    }
+
+    .maskot1 {
+      top: 5%;
+      right: 5%;
+      width: 15%;
+    }
+
+    .maskot2 {
+      bottom: 2%;
+      left: 5%;
+      width: 15%;
+    }
+
+    .intro {
+      padding: 4rem 10%;
+    }
   }
 </style>
