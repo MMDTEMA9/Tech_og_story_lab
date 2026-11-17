@@ -1,0 +1,31 @@
+---
+import "../styles/global.css";
+
+import Header from "../componenter/Header.astro";
+import Footer from "../componenter/Footer.astro";
+
+const { title } = Astro.props;
+---
+
+<html lang="da">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width" />
+    <!-- /*link til fonten fra adobe fonts*/ -->
+    <link rel="stylesheet" href="https://use.typekit.net/ciu7dpr.css">
+    
+    <title>{title}</title>
+  </head>
+  <body>
+    <!-- /*Header og Footer er komponenter som vi har lavet i componenter mappen.
+     Vi har importeret dem her, så de kan bruges på alle siderne. slot er der indhold som ikke ses på
+     alle sider kommer ind*/ -->
+    <Header />
+
+    <slot />
+
+    <Footer />
+  </body>
+</html>
