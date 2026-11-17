@@ -65,6 +65,10 @@ body {
 }
 /* -- slut reset */
 
+/* H-elemer laves kun i global.css */
+/* Det lavet class til til bagrunde, samt variabler til farver */
+/* ALT DETTE TING MÅ UNDE ÆNDRES OG LAVES I GLOBAL */
+
 /******* Generelt *******/
 /* Farver */
 :root {
@@ -162,33 +166,6 @@ p {
   font-size: var(--p-font-size);
   line-height: var(--lineheight);
   color: var(--p-color);
-}
-
-/*****DESKTOP FONTE *****/
-@media (min-width: 1000px) {
-  h1 {
-    font-size: 3rem;
-  }
-  h2 {
-    font-size: 2.5rem;
-  }
-
-  .h2_special_lyserød {
-    font-size: 4rem;
-  }
-  .h2_special_grøn {
-    font-size: 4rem;
-  }
-  h3 {
-    font-size: 2rem;
-  }
-
-  h4 {
-    font-size: 1.5rem;
-  }
-  p {
-    font-size: 1.2rem;
-  }
 }
 
 /***MOBIL Knapper*****/
@@ -305,5 +282,30 @@ p {
   .filter_knap {
     padding: 0.5rem 1.25rem;
     font-size: 1rem;
+  }
+  /*****DESKTOP FONTE *****/
+
+  h1 {
+    font-size: 4.5rem;
+  }
+  h2 {
+    font-size: 3rem;
+  }
+
+  .h2_special_lyserød {
+    font-size: 10rem;
+  }
+  .h2_special_grøn {
+    font-size: 10rem;
+  }
+  h3 {
+    font-size: 2.5rem;
+  }
+
+  h4 {
+    font-size: 2rem;
+  }
+  p {
+    font-size: 1.5rem;
   }
 }
