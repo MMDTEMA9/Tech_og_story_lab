@@ -60,9 +60,6 @@ select,
   appearance: base-select;
 }
 
-body {
-  margin-left: 2rem;
-}
 /* -- slut reset */
 
 /* H-elemer laves kun i global.css */
@@ -120,12 +117,18 @@ body {
 
 /***MOBIL FONTE*****/
 h1 {
+  font-family: "oso-serif-semicondensed", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-weight: 700;
+  font-style: normal;
   font-size: var(--h1-font-size);
   font-weight: bold;
   line-height: var(--lineheight);
   color: var(--disco-950-farve);
 }
 h2 {
+  font-family: "oso-serif-semicondensed", sans-serif;
   font-size: var(--h2-font-size);
   font-weight: bold;
   line-height: var(--lineheight);
@@ -135,20 +138,34 @@ h2 {
 /******************************************************************/
 
 .h2_special_lyserød {
+  font-family: "oso-serif-semicondensed", sans-serif;
+
   font-size: var(--h2_special-font-size);
   font-weight: bold;
   line-height: var(--lineheight);
   color: var(--pink-salmon-lyserød);
+  text-shadow: 0 0 40px var(--pink-salmon-lyserød);
+  position: absolute;
+  top: 5%;
+  right: 60%;
 }
 .h2_special_grøn {
+  font-family: "oso-serif-semicondensed", sans-serif;
   font-size: var(--h2_special-font-size);
   font-weight: bold;
   line-height: var(--lineheight);
   color: var(--neongrøn-farve);
+  text-shadow: 0 0 40px var(--neongrøn-farve);
+  position: absolute;
+  top: 75%;
+  left: 40%;
 }
 /******************************************************************/
 
 h3 {
+  font-family: "oso-sans", sans-serif;
+  font-weight: 400;
+  font-style: normal;
   font-size: var(--h3-font-size);
   font-weight: bold;
   line-height: var(--lineheight);
@@ -156,6 +173,9 @@ h3 {
 }
 
 h4 {
+  font-family: "oso-sans", sans-serif;
+  font-weight: 400;
+  font-style: normal;
   font-size: var(--h4-font-size);
   font-style: italic;
   font-weight: bold;
@@ -163,6 +183,9 @@ h4 {
   color: var(--disco-950-farve);
 }
 p {
+  font-family: "oso-sans", sans-serif;
+  font-weight: 400;
+  font-style: normal;
   font-size: var(--p-font-size);
   line-height: var(--lineheight);
   color: var(--p-color);

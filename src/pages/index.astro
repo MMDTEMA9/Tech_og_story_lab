@@ -1,6 +1,25 @@
 ---
+import PageLayout from "../layouts/PageLayout.astro";
 
-import "../styles/global.css";
+import css from "../styles/global.css"
+/*importerer PageLayout som er vores layout for alle siderne. Det er her vi har header og footer.*/
+
+
+/*vhvorfor man skriver import på 2 forskellige måder?
+SVAR: fordi det er to forskellige slags ting, og så skrives importen forskelligt.
+
+Hvad henter du?	
+Noget fra Astro (et værktøj)	import { Navn } from "astro:..."*/
+
+import { Image } from "astro:assets";
+
+/*henter billederne ind fra assets mappen*/
+/*vores egen filler (billede, komponent, layout)	import Navn from "../mappe/fil"*/
+/*henter billederne ind fra assets mappen*/
+import herobillede from "../assets/herobillede.png";
+import maskot from "../assets/maskot.png";
+import maskot2 from "../assets/maskot2.png";
+
 const apiurl = "https://hycvaeerhjimzwdnycyq.supabase.co/rest/v1/";
 //Basis-URL'en til vores Supabase-database. URL'en bruges som start-adresse i både udstyrResponse og kontaktResponse.
 
@@ -16,12 +35,6 @@ const options = {
 		apikey: key
 	}
 }
-// Selve objektet, der pakker din API-nøgle ind i en HTTP-header, som Supabase kræver.
-// Options er det JavaScript-objekt, der samler det hele sammen i den struktur, som fetch()-funktionen forventer at modtage. 
-// headers er en standard-beskedboks i HTTP-anmodninger (web-kommunikation), hvor man sender ekstra metadata med, som serveren skal bruge 
-// (f.eks. hvilken type data det er, eller hvem der spørger)
-// Apikey er det navn (nøgle-navn), som Supabase kræver, at du kalder feltet i headeren, for at de kan genkende din nøgle.
-// Key er selve nøglen (adgangskoden/værdien). Den har ingen magt i sig selv, før den bliver sat ind et sted, hvor Supabase forventer at se den.
 
 const udstyrResponse = await fetch(apiurl + udstyrTableName, options);
 const udstyrData = await udstyrResponse.json();
@@ -31,32 +44,50 @@ const kontaktData = await kontaktResponse.json();
 
 console.log("udstyrData", udstyrData);
 console.log("kontaktData", kontaktData);
-
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Index</title>
-	</head>
-	
-	<pagelayout title="Fetch Example" headline="An Example With Fetch" text="Soon you know"> 
-			<!-- <slot /> -->
-		<div>
-			<h2 class="h2_special_lyserød">Tech & </h2>
-			<h2 class="h2_special_grøn">Story Lab </h2>
-		</div>
-		
-		<button class="knap_se-udstyr">Se udstyr</button>
-				<button class="knap_kategori">om os</button>
-				<button class="knap_book-studio">Book studio</button>
-								<button class="knap_om-os">Book studio</button>
+<PageLayout title="Forside">
 
+  <section class="hero">
+    <h2 class="h2_special_lyserød">TECH &</h2>
+    <Image src={maskot} alt="chrome illustration af kamera" class="maskot1" />
+    <Image src={herobillede} alt=" Billede af kameraudstyr" class="udstyr" />
+    <Image src={maskot2} alt="chrome illustration af kamera" class="maskot2" />
+    <h2 class="h2_special_grøn">STORY LAB</h2>
+  </section>
 
-</pagelayout>
+  <button class="knap_se-udstyr">Se udstyr</button>
+  <button class="knap_kategori">Om os</button>
+  <button class="knap_book-studio">Book studio</button>
 
-</html>
+</PageLayout>
+
+<style>
+  .hero {
+    position: relative;
+    height: 100vh;
+    background-color: var(--disco-950-farve);
+  }
+
+  .udstyr {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+  }
+
+  .maskot1 {
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    width: 15%;
+  }
+
+  .maskot2 {
+    position: absolute;
+    bottom: 2%;
+    left: 5%;
+    width: 15%;
+  }
+</style>
