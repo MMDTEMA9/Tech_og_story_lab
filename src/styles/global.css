@@ -189,6 +189,13 @@ p {
   text-transform: uppercase;
 }
 
+.knap_se-udstyr:hover {
+  background-color: #ffccd3;
+  color: var(--disco-950-farve);
+  border: 2px solid var(--disco-950-farve);
+  font-style: italic;
+  text-transform: uppercase;
+}
 /* SEKUNDÆR KNAPPER */
 .knap_kategori {
   background-color: var(--baggrundsfarve);
@@ -199,7 +206,12 @@ p {
 .knap_kategori p {
   color: var(--disco-950-farve);
 }
-
+.knap_kategori:hover {
+  background-color: var(--disco-950-farve);
+  color: var(--baggrundsfarve);
+  border: 2px solid var(--disco-950-farve);
+  font-weight: normal;
+}
 .knap_book-studio {
   background-color: #ff8d9d;
   color: var(--baggrundsfarve);
@@ -209,6 +221,12 @@ p {
 .knap_book-studio p {
   color: var(--disco-950-farve);
   font-weight: bold;
+}
+.knap_book-studio:hover {
+  background-color: #f83b5e;
+  color: var(--baggrundsfarve);
+  border: 2px solid #f83b5e;
+  font-weight: normal;
 }
 .knap_om-os {
   background-color: var(--disco-950-farve);
@@ -221,6 +239,12 @@ p {
   font-weight: bold;
 }
 
+.knap_om-os:hover {
+  background-color: var(--mørkegrå-farve);
+  color: var(--baggrundsfarve);
+  border: 2px solid var(--mørkegrå-farve);
+  font-weight: normal;
+}
 /*****måske det skal ind i en anden fil, men det er her jeg har lavet det for nu*****/
 /* STATUS LEDIG OG UDLÅNT */
 .status-ledig {
