@@ -1,0 +1,28 @@
+---
+export async function getStaticPaths() {
+    const apiurl = "https://hycvaeerhjimzwdnycyq.supabase.co/rest/v1/";
+    const udstyrTableName = "udstyr";
+
+    const key = "sb_publishable_ci0x6ZnxAsDcDBjvVDKdXA_dC-IEzLE"
+
+    const options = {
+	headers: {
+		apikey: key
+	}
+}
+
+const udstyrResponse = await fetch(apiurl + udstyrTableName, options);
+const udstyrData = await udstyrResponse.json();
+
+  return udstyrData.map((udstyrData) => {
+    return {
+      params: { id: udstyrData.id },
+      props: { udstyrData },
+    };
+  });
+}
+
+const { udstyrData } = Astro.props;
+---
+
+<h1> {udstyrData.name}</h1>
