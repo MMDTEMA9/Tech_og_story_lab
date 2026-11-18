@@ -1,3 +1,42 @@
 ---
 import "../styles/global.css";
+
+import Kontraktcard from "../componenter/Kontraktcard.astro";
+import { Image } from "astro:assets";
+import frederik from "../assets/Frederik.webp";
+import luke from "../assets/Luke.webp";
+import mikki from "../assets/Mikki.webp";
+import kristoffer from "../assets/Kristoffer.webp";
+import nicolas from "../assets/Nicolas.webp";
+import emelie from "../assets/Emelie.webp";
+import daniel from "../assets/Daniel.webp";
+import type { AstroComponentInstance } from "astro/runtime/server/index.js";
+import type { astro } from "astro/fetch";
 ---
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" href="/favicon.ico" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>Kontaktliste</title>
+    </head>
+    <body>
+         <Image src={frederik} alt="Billede af Frederik"/>
+        <p>LAB-MANAGER</p>
+        <p>EYETRACKING</p>
+
+        <section>   
+        <Kontraktcard img={luke} headline="LAB-SPECIALIST" text="AI"/>
+        <Kontraktcard img={mikki} headline="LAB-ASSISTENT" text="FOTO & LYDFORTÆLLING"/>
+        <Kontraktcard img={kristoffer} headline="LAB-ASSISTENT" text="LYS & KODE"/>
+        <Kontraktcard img={nicolas} headline="FOTO"/>
+        <Kontraktcard img={emelie} headline="LYDFORTÆLLING"/>
+        <Kontraktcard img={daniel}headline="VIDEO"/>
+        </section>
+        
+    </body>
+</html>
+
