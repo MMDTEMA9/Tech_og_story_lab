@@ -4,9 +4,19 @@ const{data} = Astro.props;
 
 <article>
     <img src={data.image} alt={`Billede af ${data.name}`} />
-    <h3>{data.name}</h3>
-     <h3>{data.category}</h3>
-    {data.pickup ? <p>Ledig</p> : <p>Ikke ledig</p>}
-     <h3>{data.laanetid}</h3>
-    <a href={`/Udstyr/${data.slug}`}>Se udstyr</a>
+    <p>{data.name}</p>
+     <p>{data.category}</p>
+    {data.pickup ? <p class="status-ledig">Ledig</p> : <p class="status-udlånt">Ikke ledig</p>}
+     <p>{data.laanetid}</p>
+    <a href={`/Udstyr/${data.slug}`} class="knap_se-udstyr">Se udstyr</a>
 </article>
+<style>
+ article{
+display: grid;
+  grid-template-columns: 80px 2fr 1.2fr 2.2fr 1.2fr auto;
+  align-items: center;
+   gap: 24px;
+    }
+
+</style>
+

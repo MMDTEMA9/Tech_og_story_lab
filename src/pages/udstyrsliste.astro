@@ -1,7 +1,9 @@
 ---
 import UdstyrList from "../componenter/UdstyrList.astro";
 import "../styles/global.css";
-// import { Image } from “../assets/billede.jpg”; 
+import Header from "../componenter/Header.astro";
+import { Image } from "astro:assets";
+import maskot1 from "../assets/maskot1.webp";
 
 const apiurl = "https://hycvaeerhjimzwdnycyq.supabase.co/rest/v1/";
 //Basis-URL'en til vores Supabase-database. URL'en bruges som start-adresse i både udstyrResponse og kontaktResponse.
@@ -35,34 +37,44 @@ console.log("udstyrData", udstyrData);
 		<title>Astro</title>
 	</head>
 	<body>
-        <section>  
-			<div>
+		<Header/>
+        <section>
+			<div class="titel_container">
 				<!-- <Image src”() alt=”logo”/>  ret når billeder er tilføjet til assets -->
 				<h1>Alt udstyr - Bookes fysiskt i lab </h1>
 			</div>
 			<div>
 				<p>33 stk</p>
-				<!-- lav en fake toggle -->
 			</div>
-			<div>
-					<button class="Filtering_knap">Alt 33</button>
-					<button class="Filtering_knap">Kamera 15</button>
-					<button class="Filtering_knap">Lyd 3</button>
-					<button class="Filtering_knap">Lys 3</button>
-					<button class="Filtering_knap">Kamera linser 3</button>
-					<button class="Filtering_knap">Kamera stabiliator 3</button>
-					<button class="Filtering_knap">Tripods, monopods og andre stativer 3</button>
-					<p class="Filtering_tekst" class="Søgning_tekst">Søg fx "mikrofon"</p>
+		
+			<div class="filter_liste">
+    			<button class="filter_knap">Alt <span>33</span></button>
+    			<button class="filter_knap">Kamera <span>15</span></button>
+    			<button class="filter_knap">Lyd <span>3</span></button>
+    			<button class="filter_knap">Lys <span>3</span></button>
+    			<button class="filter_knap">Kamera linser <span>3</span></button>
+    			<button class="filter_knap">Kamera stabiliator <span>3</span></button>
+    			<button class="filter_knap">Tripods, monopods og andre stativer <span>3</span></button>
 			</div>
+			<div class="grid_1-1-1">
+				<p class="Filtering_tekst Søgning_tekst">Søg fx "mikrofon"</p>
+				<div></div>
+				<p class="toggle_tekst">Vis kun ledige</p>
+			 </div>
+
+		</section>
+		<section>
 			<div class="overblik_container">
 				<p class="Filtering_tekst">FOTO</p>
 				<p class="Filtering_tekst">UDSTYR</p>
 				<p class="Filtering_tekst">KATEGORI</p>
 				<p class="Filtering_tekst">STATUS</p>
 				<p class="Filtering_tekst">LÅNETID</p>
+				<div></div> 
+				<!-- En tom div over "se udstyr" knapperen, så det passer med layoutet -->
 			</div>
-            
-             <div>
+		
+            <div class="Udstyrskomponet">
                 {
                 udstyrData.map((data) => {
                     return <UdstyrList {data} />
@@ -70,11 +82,31 @@ console.log("udstyrData", udstyrData);
                 }
             </div>
         </section>
+		<section class="gradient_baggrundsfarve --disco-950-farve nederste_sektion">
+			<h2>Kan du ikke finde det, du leder efter?</h2>
+			<div>
+				<h3>Kom ned i labbet, så skal vi nok hjælpe dig!</h3>
+				<Image src={maskot1} alt="maskot"/>
+			</div>			
+		</section>
 	</body>
+<!-- <script>
+const valgtKategori = new URLSearchParams(window.location.search).get("kategori");
+</script> -->
+
 </html>
 <style>
+/* Mobil */
 
-/* Mobil style */
+/* Generelt på mobil */
+section{
+	padding-inline: 2rem;
+	margin-top: 4rem;
+}
+/* STYLING OG LAYOUT AF TITEL OG FUGLE-LOGOET */
+.titel_container{
+	margin: 2rem;
+}
 
 /* Styling af overblikstekst (den tekst om ligger over udstyret f.eks kategori og status) */
 .Filtering_tekst{
@@ -83,44 +115,92 @@ console.log("udstyrData", udstyrData);
 	font-size: 1rem;
 }
 .overblik_container{
-	display: flex; /* Gør det muligt at bruge flexbox-egenskaber */
- flex-direction: row; /* Lægger elementerne vandret (standard ved flex) */
-  align-items: center; /* Centrerer teksten lodret på linjen */
-  gap: 2rem; 
+ display: flex; /* Gør det muligt at bruge flexbox-egenskaber */
+ flex-direction: row; /* Lægger elementerne vandret */
+ align-items: center; /* Centrerer teksten lodret på linjen */
+ gap: 1rem; 
+}
+/******************************************************/
+/* Style på filter knapper */
+.filter_knap:hover {
+	background-color: var(--disco-950-farve);
+	color: var(--baggrundsfarve);
+}
+.filter_knap span:hover {
+  margin-left: 0.25rem;
+  color: var(--pink-salmon-lyserød);
+}
+
+/**********/
+
+/* Layout af søgefunktion, og toggel, samt style */
+.grid_1-1-1{
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-rows: 1fr ;
+	margin-block: 1rem;
+	margin-inline: 1rem;
+	gap: 20px;
 }
 .Søgning_tekst{
-background-color: #F5F5F5;
-  border: 1px solid #E0E0E0;
-  border-radius: 20px;
- 
-  }
-
-.Filtering_knap {
-  background-color: #FFFFFF;
-  border: 1px solid var( --disco-950-farve);
-  color: var(--disco-950-farve);
-  cursor: pointer;
-  border-radius: 20px;
-  margin: 5px;
-  padding: 5px 10px;
-  font-size: 1rem;
+	font-weight: 400;
+	font-size: 1rem;
+	border-radius: 4px;
+	background-color: #FFFFFF;
+	padding: 10px;
 }
-.Filtering_knap:hover {
+.grid_1-1-1 > div {
+  width: 36px;
+  height: 20px;
   background-color: var(--disco-950-farve);
-  color: var(--baggrundsfarve);
-  cursor: pointer;
-  
+  border-radius: 4px;
+  place-self: end;
 }
+.toggle_tekst{
+  color: var(--disco-950-farve);
+  font-size: 0.875rem;
+  font-weight: bold;
+  place-self: center;
+}
+/**************************************************/
+/* STYLING AF GRADIENT DIV */
+.nederste_sektion{
+text-align: center;
+}
+.nederste_sektion h2{
+color: var(--disco-950-farve);
+} 
+.nederste_sektion h3{
+color: var(--disco-950-farve);
+}
+
+
 
 /* Desktop style */
 @media (min-width: 768px) {
-
-
-
-
-
-/* Style af filteringsknapper */
-
+.grid_1-1-1{
+	display: none;
+}
+/* LAYOUT PÅ KOMPONT OG OVERBLIK AF INFORMATIONER */
+.overblik_container,
+.Udstyrskomponet {
+  display: grid;
+  grid-template-columns: 80px 2fr 1.2fr 2.2fr 1.2fr auto;
+  align-items: center;
+}
+/* 
+80px: Fast bredde til FOTO-kolonnen.
+2fr: UDSTYR (får god plads til produktnavne).
+1.2fr: KATEGORI.
+2.2fr: STATUS (plads til både badge og tekst ved siden af).
+1.2fr: LÅNETID.
+auto: Tilpasser sig automatisk bredden på knappen SE UDSTYR ude til højre. */
+/***********************/
+/* LAYOUT AF NEDERSTE SEKTION */
+.nederste_sektion div{
+display: grid;
+grid-template-columns: 1fr 1fr;
+}
 }
 </style>
 
