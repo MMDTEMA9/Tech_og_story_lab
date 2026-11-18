@@ -1,0 +1,123 @@
+---
+// Henter Astros billedværktøj, vores ikoner og billedet til bunden af footeren
+// Footeren er ens på alle sider, så der er ingen Astro.props
+import { Image } from "astro:assets";
+import adresse from "../assets/footer-iconer/adresse.svg";
+import ur from "../assets/footer-iconer/ur.svg";
+import info from "../assets/footer-iconer/info.svg";
+import mail from "../assets/footer-iconer/mail.svg";
+import footerBund from "../assets/footer-iconer/footer-bund.webp";
+---
+
+<footer>
+
+  <!-- Sektion 1: info om labbet -->
+  <div class="footer-info">
+
+    <div class="info-boks">
+      <Image src={adresse} alt="" class="ikon" />
+      <div>
+        <p class="titel">Adresse</p>
+        <p>EK Guldbergsgade</p>
+        <p>Bygning A, A025</p>
+      </div>
+    </div>
+
+    <div class="info-boks">
+      <Image src={info} alt="" class="ikon" />
+      <div>
+        <p class="titel">Adgang til labbet</p>
+        <p>Labbet er åbent for alle studerende og ansatte på EK.</p>
+      </div>
+    </div>
+
+    <div class="info-boks">
+      <Image src={ur} alt="" class="ikon" />
+      <div>
+        <p class="titel">Åbningstider</p>
+        <p>Mandag-torsdag: kl. 9-16</p>
+        <p>Fredag: kl. 9-15</p>
+      </div>
+    </div>
+
+    <div class="info-boks">
+      <Image src={mail} alt="" class="ikon" />
+      <div>
+        <p class="titel">Kontakt</p>
+        <p>Frederick Lehmann Rosling, Lab Manager</p>
+        <a href="mailto:techandstorylab@ek.dk">techandstorylab@ek.dk</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Sektion 2: billede af bunden af footeren med EK-formerne og links -->
+  <Image src={footerBund} alt="Erhvervsakademi Københavns logo med links til My EK, EK Library, EK Webmail, Moodle og ItsLearning" class="footer-bund" />
+
+</footer>
+
+<style>
+  /* ===== MOBIL ===== */
+
+  /* Hele footeren har den vinrøde baggrund */
+  footer {
+    background-color: var(--disco-950-farve);
+  }
+
+  /* Al tekst og alle links i footeren skal være lyse */
+  footer p,
+  footer a {
+    color: var(--baggrundsfarve);
+  }
+
+  /* Ingen understregning på links, kun når man holder musen over */
+  footer a {
+    text-decoration: none;
+  }
+
+  footer a:hover {
+    text-decoration: underline;
+  }
+
+  /* Overskrifterne i footeren er fede */
+  .titel {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  /* --- SEKTION 1: info --- */
+  .footer-info {
+    display: grid;
+    grid-template-columns: 1fr; /* én kolonne på mobil */
+    gap: 2rem;
+    padding: 3rem 1rem;
+  }
+
+  /* Ikon og tekst ved siden af hinanden */
+  .info-boks {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  /* Størrelse på ikonerne */
+  .ikon {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* --- SEKTION 2: billedet --- */
+  .footer-bund {
+    width: 100%; /* billedet fylder hele bredden */
+  }
+
+  /* ===== DESKTOP ===== */
+  @media (min-width: 1000px) {
+
+    /* Info-boksene i to kolonner (2 × 2), som i designet */
+    .footer-info {
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem 6rem; /* 3rem mellem rækkerne, 6rem mellem kolonnerne */
+      padding: 5rem 20%;
+    }
+  }
+</style>
