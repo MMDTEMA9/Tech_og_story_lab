@@ -1,5 +1,6 @@
 ---
 const{data} = Astro.props;
+const { img, headline, id } = Astro.props;
 ---
 
 <article>
@@ -8,7 +9,7 @@ const{data} = Astro.props;
      <p>{data.category}</p>
     {data.pickup ? <p class="status-ledig">Ledig</p> : <p class="status-udlånt">Ikke ledig</p>}
      <p>{data.laanetid}</p>
-    <a href={`/Udstyr/${data.slug}`} class="knap_se-udstyr">Se udstyr</a>
+    <a href={`/Udstyr/${data.id}`} class="knap_se-udstyr">Se udstyr</a>
 </article>
 <style>
  article{
