@@ -1,207 +1,244 @@
 ---
-import UdstyrList from "../componenter/UdstyrList.astro";
-import "../styles/global.css";
-import { Image } from "astro:assets";
-import maskot1 from "../assets/maskot1.webp";
+/* Importerer PageLayout, som er vores layout for alle siderne.
+   Det er her, vi har header, footer og global.css. */
 import PageLayout from "../layouts/PageLayout.astro";
+import "../styles/global.css";
+
+// Komponenten, der viser ét stykke udstyr i listen
+import UdstyrList from "../componenter/UdstyrList.astro";
+
+// Astros værktøj til at vise billeder
+import { Image } from "astro:assets";
+
+// Vores egne billeder fra assets-mappen
+import maskot1 from "../assets/maskot1.webp";
+import fugl from "../assets/tilbagefugl.png";
 
 const apiurl = "https://hycvaeerhjimzwdnycyq.supabase.co/rest/v1/";
-//Basis-URL'en til vores Supabase-database. URL'en bruges som start-adresse i både udstyrResponse og kontaktResponse.
+// Basis-URL'en til vores Supabase-database
 
 const udstyrTableName = "udstyr";
+// Navnet på tabellen vi henter fra
 
+const key = "sb_publishable_ci0x6ZnxAsDcDBjvVDKdXA_dC-IEzLE";
+// Vores API-nøgle, som vi har fået fra Supabase
 
-const key = "sb_publishable_ci0x6ZnxAsDcDBjvVDKdXA_dC-IEzLE"
-// Vores api key som vi har fået fra supabase.
-
+// options sender vores API-nøgle med, når vi fetcher. Uden den vil Supabase ikke give os dataen.
 const options = {
-	headers: {
-		apikey: key
-	}
-}
+  headers: {
+    apikey: key
+  }
+};
 
+/* Her henter vi alt udstyret fra Supabase.
+   await gør at koden venter, til dataen er kommet, før den går videre.
+   .json() laver dataen om, så vi kan bruge den i JavaScript. */
 const udstyrResponse = await fetch(apiurl + udstyrTableName, options);
 const udstyrData = await udstyrResponse.json();
 
-
+// Viser dataen i terminalen (ikke i browserens konsol), så vi kan se hvad kolonnerne hedder
 console.log("udstyrData", udstyrData);
-
 ---
+
+<!-- PageLayout er rammen. Alt mellem <PageLayout> og </PageLayout> kommer ind ved <slot /> i PageLayout.astro -->
 <PageLayout title="Udstyrsliste">
-        <section>
-			<div class="titel_container">
-				<!-- <Image src”() alt=”logo”/>  ret når billeder er tilføjet til assets -->
-				<h1>Alt udstyr - Bookes fysiskt i lab </h1>
-			</div>
-			<div>
-				<p>33 stk</p>
-			</div>
-		
-			<div class="filter_liste">
-    			<button class="filter_knap">Alt <span>33</span></button>
-    			<button class="filter_knap">Kamera <span>15</span></button>
-    			<button class="filter_knap">Lyd <span>3</span></button>
-    			<button class="filter_knap">Lys <span>3</span></button>
-    			<button class="filter_knap">Kamera linser <span>3</span></button>
-    			<button class="filter_knap">Kamera stabiliator <span>3</span></button>
-    			<button class="filter_knap">Tripods, monopods og andre stativer <span>3</span></button>
-			</div>
-			<div class="grid_1-1">
-				<p class="Filtering_tekst Søgning_tekst">Søg fx "mikrofon"</p>
-				<div class="toggle_tekst">
-					<div></div>
-					<p>Vis kun ledige</p>
-				</div>
-			 </div>
 
-		</section>
-		<!-- Udstyr -->
-		<section class="tool_section">
-			<div class="overblik_container">
-			<div class="image_wrapper">
-				<p class="Filtering_tekst">FOTO</p>
-				<p class="Filtering_tekst">UDSTYR</p>
-			</div>
-				<p class="Filtering_tekst">KATEGORI</p>
-				<p class="Filtering_tekst">STATUS</p>
-				<p class="Filtering_tekst">LÅNETID</p>
-				<div></div> 
-				<!-- En tom div over "se udstyr" knapperen, så det passer med layoutet -->
-			</div>
-		
-            <div class="Udstyrskomponet">
-                {
-                udstyrData.map((data) => {
-                    return <UdstyrList {data} />
-                })
-                }
-            </div>
-        </section>
-		<section class="gradient_baggrundsfarve --disco-950-farve nederste_sektion">
-			<h2>Kan du ikke finde det, du leder efter?</h2>
-			<div>
-				<h3>Kom ned i labbet, så skal vi nok hjælpe dig!</h3>
-				<Image src={maskot1} alt="maskot"/>
-			</div>			
-		</section>
+  <!-- TOPPEN: titel, antal, filterknapper, søgning og toggle -->
+  <section>
+    <!-- Fuglen og overskriften ved siden af hinanden -->
+    <div class="titel_container">
+      <Image src={fugl} alt="fugl som viser vej tilbage" />
+      <h1>Alt udstyr - Bookes fysiskt i lab</h1>
+    </div>
+
+    <div>
+      <p>33 stk</p>
+    </div>
+
+    <!-- Filterknapperne. Stylingen kommer fra global.css. span er tallet, så det kan få sin egen farve -->
+    <div class="filter_liste">
+      <button class="filter_knap">Alt <span>33</span></button>
+      <button class="filter_knap">Kamera <span>15</span></button>
+      <button class="filter_knap">Lyd <span>3</span></button>
+      <button class="filter_knap">Lys <span>3</span></button>
+      <button class="filter_knap">Kamera linser <span>3</span></button>
+      <button class="filter_knap">Kamera stabiliator <span>3</span></button>
+      <button class="filter_knap">Tripods, monopods og andre stativer <span>3</span></button>
+    </div>
+
+    <!-- Søgefelt til venstre og "Vis kun ledige" til højre -->
+    <div class="grid_1-1">
+      <p class="Filtering_tekst Søgning_tekst">Søg fx "mikrofon"</p>
+      <div class="toggle_tekst">
+        <!-- Den tomme div er selve toggle-knappen -->
+        <div></div>
+        <p>Vis kun ledige</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- UDSTYR: overskrifterne over listen og selve listen -->
+  <section class="tool_section">
+    <!-- Overskrifterne over kolonnerne i listen -->
+    <div class="overblik_container">
+      <!-- FOTO og UDSTYR ligger i samme div, så de står i samme kolonne -->
+      <div class="image_wrapper">
+        <p class="Filtering_tekst">FOTO</p>
+        <p class="Filtering_tekst">UDSTYR</p>
+      </div>
+      <p class="Filtering_tekst">KATEGORI</p>
+      <p class="Filtering_tekst">STATUS</p>
+      <p class="Filtering_tekst">LÅNETID</p>
+      <!-- En tom div over "se udstyr" knappen, så det passer med layoutet -->
+      <div></div>
+    </div>
+
+    <!-- Det her gør at listen bliver dynamisk.
+         .map går igennem alt udstyret fra Supabase og laver én UdstyrList for hvert produkt.
+         {data} sender produktet med ind i komponenten som props. -->
+    <div class="Udstyrskomponet">
+      {udstyrData.map((data) => {
+        return <UdstyrList {data} />
+      })}
+    </div>
+  </section>
+
+  <!-- NEDERSTE SEKTION: gradienten er to klasser fra global.css, så der er mellemrum imellem og ikke punktum -->
+  <section class="gradient_baggrundsfarve --disco-950-farve nederste_sektion">
+    <h2>Kan du ikke finde det, du leder efter?</h2>
+    <div>
+      <h3>Kom ned i labbet, så skal vi nok hjælpe dig!</h3>
+      <Image src={maskot1} alt="maskot" />
+    </div>
+  </section>
+
 </PageLayout>
+
 <style>
-/* Mobil */
+  /***** MOBIL *****/
+  /* Vi styler mobil først, og så ændrer vi det der skal være anderledes på desktop i media queryen nederst */
 
-/* Generelt på mobil */
-section{
-	padding-inline: 1rem;
-	margin-top: 4rem;
-}
+  /* Generelt på mobil. Gælder alle sektioner på siden */
+  section {
+    padding-inline: 1rem; /* luft til siderne */
+    margin-top: 4rem;     /* luft mellem sektionerne */
+  }
 
-/* STYLING OG LAYOUT AF TITEL OG FUGLE-LOGOET */
-.titel_container{
-	margin: 2rem;
-}
+  /* --- TITEL OG FUGLE-LOGOET --- */
+  .titel_container {
+    margin: 2rem;
+    display: grid;
+    grid-template-columns: auto auto; /* fuglen og overskriften ved siden af hinanden. auto gør dem så brede som deres indhold */
+  }
 
-/* Styling af overblikstekst (den tekst om ligger over udstyret f.eks kategori og status) */
-.Filtering_tekst{
-	color: #6D717F;
-	font-weight: 400;
-	font-size: 1rem;
-	
-}
-/******************************************************/
+  .titel_container img {
+    width: 50px;
+    height: 50px;
+  }
 
+  /* --- OVERBLIKSTEKST ---
+     Den tekst der ligger over udstyret, fx KATEGORI og STATUS */
+  .Filtering_tekst {
+    color: #6D717F;
+    font-weight: 400;
+    font-size: 1rem;
+  }
 
-/* Style på filter knapper */
-.filter_knap:hover {
-	background-color: var(--disco-950-farve);
-	color: var(--baggrundsfarve);
-	span{
-		color: var(--pink-salmon-lyserød);
-	}
-}
-/**********/
+  /* --- FILTERKNAPPER ---
+     Grundstylingen kommer fra global.css. Her laver vi kun hover */
+  .filter_knap:hover {
+    background-color: var(--disco-950-farve);
+    color: var(--baggrundsfarve);
 
-/* Layout af søgefunktion, og toggel, samt style */
-.grid_1-1{
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	grid-template-rows: 1fr ;
-	margin-block: 1rem;
-	margin-inline: 1rem;
-	gap: 20px;
-}
-.Søgning_tekst{
-	font-weight: 400;
-	font-size: 1rem;
-	border-radius: 4px;
-	background-color: #FFFFFF;
-	padding: 10px;
-}
-.toggle_tekst{
-	display: grid;
-grid-template-columns: 1fr 1fr;
-}
+    /* span inde i en regel betyder: tallet inde i knappen, når man holder musen over knappen */
+    span {
+      color: var(--pink-salmon-lyserød);
+    }
+  }
 
-.toggle_tekst div {
-	display: flex;
-  width: 36px;
-  height: 20px;
-  background-color: var(--disco-950-farve);
-  border-radius: 4px;
-  place-self: center right;
-}
-.toggle_tekst p{
-  color: var(--disco-950-farve);
-  font-size: 0.875rem;
-  font-weight: bold;
-  display: flex;
-  align-items: center;    
-  
-}
-/**************************************************/
+  /* --- SØGEFELT OG TOGGLE --- */
+  .grid_1-1 {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* søgefelt og toggle ved siden af hinanden, lige brede */
+    grid-template-rows: 1fr;
+    margin-block: 1rem;  /* luft over og under */
+    margin-inline: 1rem; /* luft til siderne */
+    gap: 20px;
+  }
 
-/* LAYOUT AF OVERBLIK CONTAINER */
-.overblik_container{
-	display: grid;
-  grid-template-columns: 1fr 1fr auto auto ;
-  gap: 4px;
-}
- .image_wrapper{
-	display: grid;
-    grid-template-columns: auto auto;
-    grid-template-rows: auto;
-    grid-column: 1 ;
+  .Søgning_tekst {
+    font-weight: 400;
+    font-size: 1rem;
+    border-radius: 4px; /* runde hjørner */
+    background-color: #FFFFFF;
+    padding: 10px;
+  }
+
+  .toggle_tekst {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* toggle-knappen og teksten ved siden af hinanden */
+  }
+
+  /* Selve toggle-knappen */
+  .toggle_tekst div {
+    display: flex;
+    width: 36px;
+    height: 20px;
+    background-color: var(--disco-950-farve);
+    border-radius: 4px;
+    place-self: center right; /* lodret i midten og helt ude til højre i sin kolonne */
+  }
+
+  .toggle_tekst p {
+    color: var(--disco-950-farve);
+    font-size: 0.875rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center; /* teksten lodret i midten, så den flugter med knappen */
+  }
+
+  /* --- OVERBLIK CONTAINER --- */
+  .overblik_container {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto auto; /* 4 kolonner på mobil */
     gap: 4px;
   }
 
-/***************/
+  /* FOTO og UDSTYR ved siden af hinanden i første kolonne */
+  .image_wrapper {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto;
+    grid-column: 1; /* ligger i første kolonne */
+    gap: 4px;
+  }
 
-/* STYLING AF GRADIENT DIV */
-.nederste_sektion{
-text-align: center;
-}
-.nederste_sektion h2{
-color: var(--disco-950-farve);
-} 
-.nederste_sektion h3{
-color: var(--disco-950-farve);
+  /* --- NEDERSTE SEKTION MED GRADIENT --- */
+  .nederste_sektion {
+    text-align: center;
+  }
 
-}
+  .nederste_sektion h2 {
+    color: var(--disco-950-farve);
+  }
 
+  .nederste_sektion h3 {
+    color: var(--disco-950-farve);
+  }
 
+  /***** DESKTOP *****/
+  /* Alt herinde gælder kun når skærmen er 768px eller bredere */
+  @media (min-width: 768px) {
 
-/***** DESKTOP STYLE *****/
+    /* Teksten og maskotten ved siden af hinanden */
+    .nederste_sektion div {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
 
-/* LAYOUT AF NEDERSTE SEKTION */
-@media (min-width: 768px){
-.nederste_sektion div{
-display: grid;
-grid-template-columns: 1fr 1fr;
-}
-/* LAYOUT AF OVERBLIK CONTAINER */
-.overblik_container{
-	display: grid;
-  grid-template-columns: 2fr 1fr 1.5fr 1fr 1fr;
-}
- }
+    /* 5 kolonner på desktop. Tallene bestemmer hvor bred hver kolonne er i forhold til de andre */
+    .overblik_container {
+      grid-template-columns: 2fr 1fr 1.5fr 1fr 1fr;
+    }
+  }
 </style>
-
-  

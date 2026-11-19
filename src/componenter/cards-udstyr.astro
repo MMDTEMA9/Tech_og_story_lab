@@ -1,12 +1,11 @@
 ---
 // Kort til ét stykke udstyr: billede og en knap videre til detailview
-const { img, headline, slug } = Astro.props;
+const { img, headline, id } = Astro.props;
 ---
 
 <article class="udstyr-kort">
   <img src={img} alt={`Billede af ${headline}`} />
-  <a href={`/udstyrsliste/${slug}`} class="knap_se-udstyr">Se udstyr</a>
-</article>
+<a href={`/udstyr/${id}`} class="knap_se-udstyr">Se udstyr</a></article>
 
 <style>
   .udstyr-kort {
@@ -15,5 +14,9 @@ const { img, headline, slug } = Astro.props;
     display: grid;
     justify-items: center; /* centrerer billede og knap */
     gap: 1.5rem;
+  }
+
+  .udstyr-kort img {
+    width: 50%; /* gør billedet mindre end kortet */
   }
 </style>

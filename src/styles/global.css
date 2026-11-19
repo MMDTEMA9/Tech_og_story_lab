@@ -83,9 +83,10 @@ select,
 .gradient_pink-salmon-lyserød.--disco-950-farve {
   background-image: linear-gradient(180deg, var(--pink-salmon-lyserød), var(--disco-950-farve));
 }
-.gradient_baggrundsfarve.--disco-950-farve {
+.gradient_baggrundsfarve--disco-950-farve {
   background-image: linear-gradient(180deg, var(--baggrundsfarve), var(--disco-950-farve));
 }
+
 .forside_baggrund-footer {
   background-image: linear-gradient(180deg, var(--baggrundsfarve), var(--pink-salmon-lyserød), var(--disco-950-farve));
 }

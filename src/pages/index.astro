@@ -2,9 +2,9 @@
 /* Importerer PageLayout, som er vores layout for alle siderne.
    Det er her, vi har header, footer og global.css. */
 import PageLayout from "../layouts/PageLayout.astro";
-import udstyrBord from "../assets/udstyr-bord.webp";
-import studie from "../assets/studie.webp";
 import "../styles/global.css";
+// Der står ../ fordi index.astro ligger direkte i pages. Så skal vi én mappe op for at finde layouts og styles.
+
 /* Hvorfor skriver man import på 2 forskellige måder?
    Fordi det er to forskellige slags ting:
    - Noget fra Astro (et værktøj):   import { Navn } from "astro:..."
@@ -20,6 +20,8 @@ import maskot2 from "../assets/maskot2.webp";
 import maskot4 from "../assets/maskot4.webp";
 import kamera from "../assets/forside-billeder/kamera-10000.webp";
 import arcade from "../assets/forside-billeder/arcade.webp";
+import udstyrBord from "../assets/udstyr-bord.webp";
+import studie from "../assets/studie.webp";
 
 const apiurl = "https://hycvaeerhjimzwdnycyq.supabase.co/rest/v1/";
 // Basis-URL'en til vores Supabase-database. URL'en bruges som start-adresse i både udstyrResponse og kontaktResponse.
@@ -31,18 +33,24 @@ const kontaktTableName = "kontakt";
 const key = "sb_publishable_ci0x6ZnxAsDcDBjvVDKdXA_dC-IEzLE";
 // Vores API-nøgle, som vi har fået fra Supabase.
 
+// options sender vores API-nøgle med, når vi fetcher. Uden den vil Supabase ikke give os dataen.
 const options = {
-	headers: {
-		apikey: key
-	}
+  headers: {
+    apikey: key
+  }
 };
 
+/* Her henter vi dataen fra Supabase.
+   apiurl + udstyrTableName bliver til den fulde adresse på tabellen.
+   await gør at koden venter, til dataen er kommet, før den går videre.
+   .json() laver dataen om, så vi kan bruge den i JavaScript. */
 const udstyrResponse = await fetch(apiurl + udstyrTableName, options);
 const udstyrData = await udstyrResponse.json();
 
 const kontaktResponse = await fetch(apiurl + kontaktTableName, options);
 const kontaktData = await kontaktResponse.json();
 
+// Viser dataen i terminalen (ikke i browserens konsol), så vi kan se hvad kolonnerne hedder
 console.log("udstyrData", udstyrData);
 console.log("kontaktData", kontaktData);
 ---
@@ -51,33 +59,39 @@ console.log("kontaktData", kontaktData);
 <PageLayout title="Forside">
   <section class="forside">
 
+    <!-- HERO: det første man ser på siden. Overskrift, udstyrsbillede og to maskotter i hjørnerne -->
     <section class="hero">
       <h2 class="h2_special_lyserød">TECH &</h2>
+      <!-- alt="" er tom, fordi maskotterne kun er pynt og ikke vigtige for skærmlæsere -->
       <Image src={maskot1} alt="" class="maskot1" />
       <Image src={herobillede} alt="Kamera, mikrofon, computer og høretelefoner" class="udstyr" />
       <Image src={maskot2} alt="" class="maskot2" />
       <h2 class="h2_special_grøn">STORY LAB</h2>
     </section>
 
+    <!-- INTRO: hvad labbet er, datavisualiseringen med 10.000 og kategoriknapperne -->
     <section class="intro">
       <h1>Hvad er Tech & Story Lab?</h1>
       <p>I Tech & Story Lab kan du eksperimentere med ny teknologi og på egen hånd lære at arbejde med forskelligt udstyr.</p>
 
+      <!-- Kameraet med tallet 10.000 -->
       <div class="datavisualisering">
         <Image src={kamera} alt="Kamera, hvor skærmen viser 10.000 udstyrsudlån om året" />
 
         <div class="datavisualisering-tekst">
           <p class="tal">10.000</p>
+          <!-- span gør det muligt at style "studerende om året" anderledes end resten af teksten -->
           <p><span>studerende om året</span><br />låner udstyr og bruger faciliteterne i labbet.</p>
         </div>
       </div>
 
-      <!-- Kategorierne ligger nu inde i .intro, så de kan stå i venstre kolonne ved siden af 10.000 på desktop.
+      <!-- Kategorierne ligger inde i .intro, så de kan stå i venstre kolonne ved siden af 10.000 på desktop.
            De står efter kameraet, så de stadig kommer under kameraet på mobil. -->
       <div class="kategori-blok">
         <h4>Vi har alt lige fra:</h4>
 
-        <!-- Det efter kategori= skal være præcis som category i Supabase.
+        <!-- ?kategori= sender kategorien med i URL'en, så listview ved hvad den skal filtrere efter.
+             Det efter kategori= skal være præcis som category i Supabase.
              Altså: Kamera, Lyd, Lys, Tripods, monopods og andre stativer, Kamerastabilisator -->
         <div class="kategorier">
           <a href="/udstyrsliste?kategori=Kamera" class="knap_kategori">Kameraer</a>
@@ -92,11 +106,13 @@ console.log("kontaktData", kontaktData);
       </div>
     </section>
 
+    <!-- SEKTION 3: studiekort, åbningstider og arcade-maskinen. Den grønne gradient kommer fra global.css -->
     <section class="sektion3 gradient_neongrøn-baggrundsfarve">
       <div>
         <h3>Husk dit studiekort</h3>
+        <!-- span med klassen rødtekst gør de vigtige ord mørkerøde og fede -->
         <p>For at låne udstyr og bruge vores faciliteter <br>skal du have <span class="rødtekst">dit studiekort</span> med. <br>
-Kortet <span class="rødtekst">skal være gyldigt</span> og må kun bruges af kortets ejer.</p>
+        Kortet <span class="rødtekst">skal være gyldigt</span> og må kun bruges af kortets ejer.</p>
       </div>
       <div>
         <h3>Åbningstider:</h3>
@@ -105,61 +121,71 @@ Kortet <span class="rødtekst">skal være gyldigt</span> og må kun bruges af ko
       </div>
       <Image src={arcade} alt="Arcade-maskine med Tech & Story Lab-design" class="arcade" />
     </section>
+
+    <!-- Tom div, der kun bruges til at lave luft mellem sektion 3 og 4 på desktop. Den er skjult på mobil -->
     <div class="tomsektion"></div>
-<section class="sektion4 gradient_pink-salmon-lyserød baggrundsfarve">
-  <div class="kort-liste">
 
-    <div class="kort">
-      <h2>Vores udstyr</h2>
-      <Image src={udstyrBord} alt="Kamera, objektiv, høretelefoner og mikrofon på et bord" class="kort-billede" />
-      <a href="/udstyrsliste" class="knap_se-udstyr">Se udstyr</a>
-    </div>
+    <!-- SEKTION 4: to kort med udstyr og studios.
+         Gradienten er to klasser fra global.css, så der er mellemrum imellem og ikke punktum -->
+<section class="sektion4 gradient_pink-salmon-lyserød-baggrundsfarve">      <div class="kort-liste">
 
-    <div class="kort">
-      <h2>Vores studios</h2>
-      <Image src={studie} alt="To personer bliver fotograferet i fotostudiet" class="kort-billede" />
-      <a href="#" class="knap_book-studio">Book studio</a>
-    </div>
+        <div class="kort">
+          <h2>Vores udstyr</h2>
+          <Image src={udstyrBord} alt="Kamera, objektiv, høretelefoner og mikrofon på et bord" class="kort-billede" />
+          <a href="/udstyrsliste" class="knap_se-udstyr">Se udstyr</a>
+        </div>
 
-  </div>
-</section>
-<section class="sektion5 forside_baggrund-footer">
-  <h2>Workshops & Events</h2>
+        <div class="kort">
+          <h2>Vores studios</h2>
+          <Image src={studie} alt="To personer bliver fotograferet i fotostudiet" class="kort-billede" />
+          <!-- # betyder at linket ikke går nogen steder endnu -->
+          <a href="#" class="knap_book-studio">Book studio</a>
+        </div>
 
-  <div class="workshop-indhold">
-    <p class="workshop-tekst">
-      Er du interesseret? Kom ned i labbet og få mere information om vores workshops og events.
-    </p>
-    <Image src={maskot4} alt="" class="workshop-maskot" />
-  </div>
-</section>
+      </div>
+    </section>
+
+    <!-- SEKTION 5: workshops og events. Gradienten går fra lys til mørk, så den glider over i footeren -->
+    <section class="sektion5 forside_baggrund-footer">
+      <h2>Workshops & Events</h2>
+
+      <div class="workshop-indhold">
+        <p class="workshop-tekst">
+          Er du interesseret? Kom ned i labbet og få mere information om vores workshops og events.
+        </p>
+        <Image src={maskot4} alt="" class="workshop-maskot" />
+      </div>
+    </section>
+
   </section>
-
 </PageLayout>
 
 <style>
-
+  /***** MOBIL *****/
+  /* Vi styler mobil først, og så ændrer vi det der skal være anderledes på desktop i media queryen nederst */
 
   /* Luft til kanterne på alle sektioner under hero.
      Paddingen sidder på sektionen selv, så en baggrundsfarve går helt ud til kanten */
-.intro,
-.sektion3,
-.sektion4,
-.sektion5 {
-  padding: 2rem 1rem;
-}
-.intro {
-  margin-top: 3rem;    /* luft mellem sektionerne */
-  margin-bottom: 1rem; /* luft mellem sektionerne */
-}
+  .intro,
+  .sektion3,
+  .sektion4,
+  .sektion5 {
+    padding: 2rem 1rem; /* top og bund, sider */
+  }
+
+  .intro {
+    margin-top: 3rem;    /* luft mellem sektionerne */
+    margin-bottom: 1rem; /* luft mellem sektionerne */
+  }
+
   /* --- HERO --- */
   .hero {
     position: relative; /* gør det muligt at placere maskotterne frit i hero-sektionen */
-    background-color: var(--disco-950-farve);
+    background-color: var(--disco-950-farve); /* farven kommer fra variablerne i global.css */
     display: flex;
     flex-direction: column; /* på mobil står tingene under hinanden */
-    justify-content: center;
-    align-items: center;
+    justify-content: center; /* centrerer lodret */
+    align-items: center;     /* centrerer vandret */
     gap: 1rem;
     padding: 3rem 1rem;
     text-align: center;
@@ -169,7 +195,8 @@ Kortet <span class="rødtekst">skal være gyldigt</span> og må kun bruges af ko
     width: 90%;
   }
 
-  /* Figurerne sidder i hjørnerne */
+  /* Figurerne sidder i hjørnerne.
+     position: absolute tager dem ud af flexboxen, så de ikke skubber til de andre ting */
   .maskot1 {
     position: absolute;
     top: 2%;   /* 2% fra toppen af hero-sektionen */
@@ -187,7 +214,7 @@ Kortet <span class="rødtekst">skal være gyldigt</span> og må kun bruges af ko
   /* --- INTRO --- */
   .intro {
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* alt under hinanden på mobil */
     gap: 1rem;
   }
 
@@ -195,7 +222,7 @@ Kortet <span class="rødtekst">skal være gyldigt</span> og må kun bruges af ko
     display: flex;           /* tal og tekst ved siden af hinanden */
     align-items: flex-start; /* toppen af teksten flugter med toppen af tallet */
     gap: 1rem;
-    margin-inline-start: auto;
+    margin-inline-start: auto; /* skubber tal og tekst ud til højre */
   }
 
   .tal {
@@ -205,9 +232,10 @@ Kortet <span class="rødtekst">skal være gyldigt</span> og må kun bruges af ko
     color: var(--disco-950-farve);
   }
 
+  /* :last-child betyder den sidste p inde i .datavisualisering-tekst, altså teksten og ikke tallet */
   .datavisualisering-tekst p:last-child {
     padding-top: 1.3rem; /* skubber teksten lidt ned, så den flugter med tallet */
-    max-width: 20ch;     /* styrer hvor teksten brydes */
+    max-width: 20ch;     /* styrer hvor teksten brydes. ch er bredden på ét tegn */
     line-height: 1.5;
   }
 
@@ -216,8 +244,7 @@ Kortet <span class="rødtekst">skal være gyldigt</span> og må kun bruges af ko
     color: var(--disco-950-farve);
   }
 
-  /* --- KATEGORIER (ligger nu inde i intro) --- */
-
+  /* --- KATEGORIER (ligger inde i intro) --- */
   .kategori-blok {
     margin-top: 2rem; /* luft mellem 10.000 og "Vi har alt lige fra" på mobil */
   }
@@ -241,39 +268,39 @@ Kortet <span class="rødtekst">skal være gyldigt</span> og må kun bruges af ko
   /* --- SEKTION 3: studiekort og åbningstider --- */
   .sektion3 {
     display: flex;
-    flex-direction: column;
-    gap: 2rem; margin-top:30px;
+    flex-direction: column; /* alt under hinanden på mobil */
+    gap: 2rem;
+    margin-top: 30px;
     padding-bottom: 0; /* ingen luft i bunden, så billedet kan stå helt nede */
   }
 
-  /* Luften i bunden ligger nu på teksten i stedet */
+  /* Luften i bunden ligger på teksten i stedet */
   .sektion3 div {
     padding-bottom: 1rem;
   }
 
   .arcade {
-    margin-top: -8rem;    /* trækker billedet op ved siden af åbningstiderne */
+    margin-top: -8rem;    /* minus trækker billedet op ved siden af åbningstiderne */
     margin-right: 2rem;   /* skubber billedet lidt væk fra højre kant */
-    width: 30%;           
+    width: 30%;
     align-self: flex-end; /* billedet til højre */
   }
-
 
   .rødtekst {
     color: var(--disco-950-farve);
     font-weight: bold;
   }
 
-  .tomsektion{
-    display: none;}
-
-
+  /* Den tomme div er skjult på mobil */
+  .tomsektion {
+    display: none;
+  }
 
   /* --- SEKTION 4: udstyr og studios --- */
   .kort-liste {
     display: flex;
     flex-direction: column; /* kortene under hinanden på mobil */
-    gap: 3rem;/* luft mellem de to kort */
+    gap: 3rem; /* luft mellem de to kort */
   }
 
   .kort {
@@ -288,38 +315,40 @@ Kortet <span class="rødtekst">skal være gyldigt</span> og må kun bruges af ko
   }
 
   .kort a {
-    align-self: center; /* knappen i midten  */
+    align-self: center; /* knappen i midten */
     margin-bottom: 60px;
   }
-  .sektion4 h2{
+
+  .sektion4 h2 {
     color: var(--disco-950-farve);
-    margin-inline: auto;
+    margin-inline: auto; /* centrerer overskriften */
     margin-top: 20px;
   }
 
   /* --- SEKTION 5: workshops og events --- */
-.sektion5 {
-  padding-top: 5rem;    
-  padding-bottom: 8rem;
-  margin-bottom: 0;      /* går helt ned til footeren */
-}
+  .sektion5 {
+    padding-top: 5rem;
+    padding-bottom: 8rem;
+    margin-bottom: 0; /* går helt ned til footeren */
+  }
 
-.workshop-tekst {
-font-style: italic;
-max-width: 30ch;  
-margin-top: 20px;
-}
+  .workshop-tekst {
+    font-style: italic;
+    max-width: 30ch; /* teksten bliver ikke for bred */
+    margin-top: 20px;
+  }
 
-.workshop-maskot {
-  width: 30%;
-  margin-left: auto; /* skubber figuren ud til højre */
-  margin-right: 6%;  /* lidt luft til højre kant */
-}
-  
-  /* ===== DESKTOP ===== */
+  .workshop-maskot {
+    width: 30%;
+    margin-left: auto; /* skubber figuren ud til højre */
+    margin-right: 6%;  /* lidt luft til højre kant */
+  }
+
+  /***** DESKTOP *****/
+  /* Alt herinde gælder kun når skærmen er 1000px eller bredere, ligesom i global.css */
   @media (min-width: 1000px) {
 
-    /* Luft til siderne på alle sektioner under hero */
+    /* Mere luft til siderne på alle sektioner under hero */
     .intro,
     .sektion3,
     .sektion4,
@@ -330,16 +359,19 @@ margin-top: 20px;
     /* --- HERO --- */
     .hero {
       display: block; /* fjerner flexbox, så vi kan placere tingene frit */
-      height: 100vh;  /* hero-sektionen fylder hele skærmen */
+      height: 100vh;  /* hero-sektionen fylder hele skærmen. vh er højden på skærmen */
       padding: 0;
     }
 
+    /* TECH & oppe i venstre hjørne */
     .hero .h2_special_lyserød {
       position: absolute;
       top: 5%;
-      left: 5%;
+     left:2%;
+     font-size: 12rem;
     }
 
+    /* STORY LAB nede i højre hjørne */
     .hero .h2_special_grøn {
       position: absolute;
       bottom: 5%;
@@ -400,16 +432,18 @@ margin-top: 20px;
     }
 
     .tal {
- font-size: 5rem;    }
- .datavisualisering-tekst p:last-child {
-  padding-top: 0.6rem; /* tallet er mindre, så teksten skal ikke skubbes så langt ned for at flugte */
-  max-width: none;     /* lad teksten bruge den plads, der er */
-  line-height: 1.4;    /* lidt tættere linjer */
-}
+      font-size: 5rem;
+    }
+
+    .datavisualisering-tekst p:last-child {
+      padding-top: 0.6rem; /* tallet er mindre, så teksten skal ikke skubbes så langt ned for at flugte */
+      max-width: none;     /* lad teksten bruge den plads, der er */
+      line-height: 1.4;    /* lidt tættere linjer */
+    }
 
     /* --- SEKTION 3: arcade, studiekort og åbningstider på én række --- */
     .sektion3 {
-      flex-direction: row;
+      flex-direction: row; /* ved siden af hinanden i stedet for under hinanden */
       align-items: center;
       gap: 5rem;
       padding-top: 2rem;
@@ -429,11 +463,15 @@ margin-top: 20px;
       margin-right: 0;
     }
 
-    .tomsektion{display: block;padding: 100px;}
+    /* Den tomme div bliver vist på desktop og laver luft mellem sektion 3 og 4 */
+    .tomsektion {
+      display: block;
+      padding: 100px;
+    }
+
     /* --- SEKTION 4: udstyr og studios ved siden af hinanden --- */
     .kort-liste {
-      display: flex;
-      flex-direction: row;
+      flex-direction: row; /* kortene ved siden af hinanden */
       gap: 4rem;
     }
 
@@ -446,11 +484,8 @@ margin-top: 20px;
     }
 
     /* --- SEKTION 5: workshops og events --- */
-
-   .sektion5, .forside_baggrund-footer{
-    padding-left:20%;
-   }
     .sektion5 {
+      padding-left: 20%; /* skubber indholdet ind fra venstre */
       padding-top: 6rem;
       padding-bottom: 10rem;
     }
