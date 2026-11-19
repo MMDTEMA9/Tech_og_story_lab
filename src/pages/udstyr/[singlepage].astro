@@ -1,5 +1,5 @@
 ---
-/* Importerer PageLayout, som er vores layout for alle sslugerne.
+/* Importerer PageLayout, som er vores layout for alle siderne.
    Det er her, vi har header, footer og global.css. */
 import PageLayout from "../../layouts/PageLayout.astro";
 import "../../styles/global.css";
@@ -18,7 +18,7 @@ import kaffekop from "../../assets/Detailview-billeder/Kaffekop.png";
 import person from "../../assets/Detailview-billeder/Person.png";
 import kortfilm from "../../assets/Detailview-billeder/Kortfilm.png";
 
-// Laver én underssluge for hvert produkt i Supabase.
+// Laver én underside for hvert produkt i Supabase.
 // Variablerne skal stå herinde, fordi funktionen ikke kan se resten af filen.
 export async function getStaticPaths() {
   const apiurl = "https://hycvaeerhjimzwdnycyq.supabase.co/rest/v1/";
@@ -34,10 +34,10 @@ export async function getStaticPaths() {
   const udstyrResponse = await fetch(apiurl + udstyrTableName, options);
   const udstyrData = await udstyrResponse.json();
 
- return udstyrData.map((produkt) => ({
-  params: { singlepage: String(produkt.id) },
-  props: { produkt, udstyrData },
-}));
+  return udstyrData.map((produkt) => ({
+    params: { singlepage: String(produkt.id) },
+    props: { produkt, udstyrData },
+  }));
 }
 
 // Det produkt, man har klikket på, og alt udstyret
@@ -80,9 +80,9 @@ const { produkt, udstyrData } = Astro.props;
   <section class="sektion4">
     <h2>Andet udstyr</h2>
     <div class="kort-liste">
-<UdstyrKort img={udstyrData[0].image} headline={udstyrData[0].name} id={udstyrData[0].id} />
-<UdstyrKort img={udstyrData[1].image} headline={udstyrData[1].name} id={udstyrData[1].id} />
-<UdstyrKort img={udstyrData[2].image} headline={udstyrData[2].name} id={udstyrData[2].id} />
+      <UdstyrKort img={udstyrData[0].image} headline={udstyrData[0].name} id={udstyrData[0].id} />
+      <UdstyrKort img={udstyrData[1].image} headline={udstyrData[1].name} id={udstyrData[1].id} />
+      <UdstyrKort img={udstyrData[2].image} headline={udstyrData[2].name} id={udstyrData[2].id} />
     </div>
   </section>
 
@@ -94,29 +94,37 @@ const { produkt, udstyrData } = Astro.props;
   /* Sektion 1 */
   .sektion1 {
     background-color: var(--disco-950-farve);
-    padding: 1rem;
+    padding: 1.5rem 1rem 3rem;
   }
 
   .tilbagefugl {
-    wslugth: 2rem;
+    width: 2rem;
   }
 
   .sektion1 h2 {
     text-align: center;
+    white-space: normal; /* lange navne må gå på to linjer på mobil */
+    margin-block: 1rem 2rem;
   }
 
   .produkt-billede {
-    wslugth: 80%;
+    width: 90%;
     margin-inline: auto;
+  }
+
+  /* Sektion 2 */
+  .sektion2 {
+    padding: 2rem 1rem;
+    text-align: center;
   }
 
   /* Sektion 3 */
   .sektion3 {
     position: relative; /* så båndet placeres i forhold til sektionen */
-    overflow: hslugden;   /* skjuler det af båndet, der stikker ud */
-    display: grslug;
+    overflow: hidden;   /* skjuler det af båndet, der stikker ud */
+    display: grid;
     gap: 2rem;
-    padding: 6rem 1rem 2rem;
+    padding: 6rem 1rem 3rem;
   }
 
   .sektion3 h3 {
@@ -126,12 +134,13 @@ const { produkt, udstyrData } = Astro.props;
   /* Det grønne bånd i hjørnet */
   .skraa-baand {
     position: absolute;
-    top: 2rem;
+    top: 1.5rem;
     left: -4rem;
-    wslugth: 16rem;
-    padding: 0.75rem 0;
+    width: 14rem;
+    padding: 0.5rem 0;
     background-color: var(--neongrøn-farve);
     color: var(--disco-950-farve);
+    font-size: 0.875rem;
     font-weight: bold;
     font-style: italic;
     text-align: center;
@@ -140,9 +149,9 @@ const { produkt, udstyrData } = Astro.props;
 
   /* De 4 små billeder, 2 og 2 */
   .smaa-billeder {
-    display: grslug;
-    grslug-template-columns: 1fr 1fr;
-    gap: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
     margin-bottom: 1rem;
   }
 
@@ -153,46 +162,71 @@ const { produkt, udstyrData } = Astro.props;
 
   /* Sektion 4: kortene under hinanden på mobil */
   .sektion4 {
-    padding: 2rem 1rem;
+    padding: 2rem 1rem 3rem;
+  }
+
+  .sektion4 h2 {
+    text-align: center;
   }
 
   .kort-liste {
-    display: grslug;
-    gap: 1rem;
-    margin-top: 1rem;
+    display: grid;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
   }
 
   /***** DESKTOP *****/
-  @media (min-wslugth: 1000px) {
+  @media (min-width: 1000px) {
+    .sektion1 {
+      padding: 2rem 5rem 4rem;
+    }
+
     .tilbagefugl {
-      wslugth: 6rem;
+      width: 6rem;
+    }
+
+    .sektion1 h2 {
+      white-space: nowrap; /* på én linje igen på desktop */
     }
 
     .produkt-billede {
-      wslugth: 50%;
+      width: 50%;
+    }
+
+    .sektion2 {
+      padding: 4rem 5rem;
     }
 
     /* Stort billede til venstre, små billeder til højre */
     .sektion3 {
-      grslug-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
       gap: 4rem;
       padding: 8rem 5rem 4rem;
+    }
+
+    .smaa-billeder {
+      gap: 1rem;
     }
 
     .skraa-baand {
       top: 4rem;
       left: -5rem;
-      wslugth: 22rem;
+      width: 22rem;
       padding: 1.5rem 0;
+      font-size: 1.5rem;
     }
 
-    /* 3 kort ved sslugen af hinanden */
+    /* 3 kort ved siden af hinanden */
     .sektion4 {
       padding: 4rem 5rem;
     }
 
+    .sektion4 h2 {
+      text-align: left;
+    }
+
     .kort-liste {
-      grslug-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
       gap: 2rem;
     }
   }
