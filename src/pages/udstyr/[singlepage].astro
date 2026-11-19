@@ -18,6 +18,9 @@ import portræt from "../../assets/Detailview-billeder/Portræt.png";
 import kaffekop from "../../assets/Detailview-billeder/Kaffekop.png";
 import person from "../../assets/Detailview-billeder/Person.png";
 import kortfilm from "../../assets/Detailview-billeder/Kortfilm.png";
+import ternetbaggrund from "../../assets/ternetbaggrund.png";
+import nicolas from "../../assets/Nicolas.webp";
+import daniel from "../../assets/Daniel.webp";
 
 /* getStaticPaths laver én underside for hvert produkt i Supabase.
    Filen hedder [singlepage].astro, og de firkantede parenteser betyder at [singlepage] bliver skiftet ud med noget.
@@ -33,6 +36,7 @@ export async function getStaticPaths() {
   const key = "sb_publishable_ci0x6ZnxAsDcDBjvVDKdXA_dC-IEzLE";
   // Vores API-nøgle, som vi har fået fra Supabase
 
+  
   const options = {
     headers: {
       apikey: key
@@ -61,6 +65,12 @@ const { produkt, udstyrData } = Astro.props;
    !== betyder "er ikke lig med".
    Så står man på et kamera, bliver alle kameraer sorteret fra, og man får fx mikrofoner og stativer i stedet. */
 const andetUdstyr = udstyrData.filter((item) => item.category !== produkt.category);
+/* Liste med specialisterne. Hver specialist er et objekt med navn, rolle og billede.
+   Så skal vi kun skrive HTML'en til kortet én gang. */
+const specialister = [
+  { fornavn: "Nicolas", navn: "Nicolas Harup", rolle: "Foto", billede: nicolas },
+  { fornavn: "Daniel", navn: "Daniel Poulsen", rolle: "Video", billede: daniel },
+];
 ---
 
 <PageLayout title={produkt.name}>
@@ -78,14 +88,31 @@ const andetUdstyr = udstyrData.filter((item) => item.category !== produkt.catego
     <img class="produkt-billede" src={produkt.image} alt={produkt.name} />
   </section>
 
-  <!-- SEKTION 2 -->
-  <section class="sektion2">
-    <h2>KONTAKT MATHILDA LAVER</h2>
+  <!-- SEKTION 2: Specialisterne.
+       Baggrunden sættes med style, fordi billedet ligger i assets. Astro giver billedet et nyt navn,
+       når siden bygges, så vi bruger .src for at få den rigtige sti. -->
+  <section class="specialister">
+
+    <h1>Vi er dine specialister</h1>
+    <div class="specialister-grid" style={`background-image: url(${ternetbaggrund.src})`}>
+  {specialister.map((specialist) => (
+    <article class="kort">
+      <Image src={specialist.billede} alt={`Portræt af ${specialist.navn}`} />
+      <div class="kort-label">
+        <span>{specialist.navn}</span>
+        <span>{specialist.rolle}</span>
+      </div>
+    </article>
+  ))}
+</div>
+
+
+    <a href="/om-os" class="knap_om-os"><p>OM OS</p></a>
   </section>
 
   <!-- SEKTION 3: Projekter taget med udstyret.
        Gradienten kommer fra global.css. Det er to klasser, så der skal være mellemrum imellem og ikke punktum. -->
-<section class="sektion3 gradient_pink-salmon-lyserød-baggrundsfarve">
+  <section class="sektion3 gradient_pink-salmon-lyserød-baggrundsfarve">
     <!-- Det grønne skrå bånd i hjørnet -->
     <p class="skraa-baand">Taget med kameraet</p>
 
@@ -120,12 +147,10 @@ const andetUdstyr = udstyrData.filter((item) => item.category !== produkt.catego
 
   <!-- Tom div med gradienten fra global.css. Den laver overgangen fra siden ned i footeren,
        så fade'et først starter under kortene -->
-<div class="fade gradient_baggrundsfarve--disco-950-farve"></div>
+  <div class="fade gradient_baggrundsfarve--disco-950-farve"></div>
 </PageLayout>
 
 <style>
-  /***** MOBIL *****/
-  /* Vi styler mobil først, og så ændrer vi det der skal være anderledes på desktop i media queryen nederst */
 
   /* --- SEKTION 1 --- */
   .sektion1 {
@@ -149,9 +174,69 @@ const andetUdstyr = udstyrData.filter((item) => item.category !== produkt.catego
   }
 
   /* --- SEKTION 2 --- */
-  .sektion2 {
-    padding: 2rem 1rem;
-    text-align: center;
+  .specialister {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* centrerer gitteret og knappen */
+    gap: 2rem;
+    padding: 3rem 1rem;
+  }
+
+  /* Boksen med den ternede baggrund. Selve billedet sættes i HTML'en */
+  .specialister-grid {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 430px;
+    padding: 5.5rem 2rem; /* luft rundt om kortene, så gitteret kan ses */
+    background-size: cover;
+    background-position: center;
+  }
+.specialister h1{color: var(--disco-950-farve);}
+  .kort {
+    flex: 1;
+    max-width: 175px;
+    position: relative; /* så underskriften placeres i forhold til kortet */
+  }
+
+  .kort img {
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+  }
+
+  /* Den grønne bar */
+  .kort-label {
+    display: flex;
+    justify-content: space-between; /* navn til venstre, FOTO/VIDEO til højre */
+    padding: 0.2rem 0.4rem;
+    background-color: var(--neongrøn-farve);
+    color: var(--disco-950-farve);
+    font-family: "oso-sans", sans-serif;
+    font-size: 0.65rem;
+    font-weight: bold;
+  }
+
+  .kort-label span:last-child {
+    text-transform: uppercase;
+  }
+
+  /* Underskriften oven på billedet */
+  .underskrift {
+    position: absolute;
+    top: 1.8rem;
+    left: 0.3rem;
+    font-family: "Mrs Saint Delafield", cursive;
+    font-size: 2.2rem;
+    color: var(--neongrøn-farve);
+    transform: rotate(-55deg);
+    z-index: 1; /* ligger over billedet */
+    pointer-events: none;
+  }
+
+  /* Knappen er bredere i designet end standard */
+  .specialister .knap_om-os {
+    padding: 0.6rem 4.5rem;
   }
 
   /* --- SEKTION 3 --- */
@@ -217,6 +302,7 @@ const andetUdstyr = udstyrData.filter((item) => item.category !== produkt.catego
     height: 8rem;
   }
 
+  
   /***** DESKTOP *****/
   /* Alt herinde gælder kun når skærmen er 1000px eller bredere, ligesom i global.css */
   @media (min-width: 1000px) {
@@ -230,16 +316,14 @@ const andetUdstyr = udstyrData.filter((item) => item.category !== produkt.catego
       width: 6rem;
     }
 
-    .sektion1 h2 {
-      white-space: nowrap; /* på én linje igen på desktop */
-    }
+ 
 
     .produkt-billede {
       width: 50%;
     }
 
     /* --- SEKTION 2 --- */
-    .sektion2 {
+    .specialister {
       padding: 4rem 5rem;
     }
 
@@ -281,5 +365,6 @@ const andetUdstyr = udstyrData.filter((item) => item.category !== produkt.catego
     .fade {
       height: 12rem;
     }
+    
   }
 </style>
