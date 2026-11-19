@@ -153,4 +153,31 @@ position: absolute;
     grid-column: 3;
     grid-row: 3;
     }
+
+
+  /***** DESKTOP *****/
+  /* Alt herinde gælder kun når skærmen er 768px eller bredere */
+  @media (min-width: 768px) {
+
+    /* flyttar mødholdet till mitten av sidan*/
+    .marginruntom{
+        /* auto centrerar innehållet horisotellt automatiskr */
+    margin: auto;
+    width: 40%;
+    border: 30px solid var(--disco-950-farve);
+    background-color: var(--disco-950-farve);
+    border-radius: 10px;
+    }
+/* ändrar bakgrund , min-height betyder minsta höjd och 100vh = 100 % av skärmens höjd */
+    .ternetbakgrund{
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+       background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        min-height: 110vh;
+    }
+
+  
+  }
 </style>
