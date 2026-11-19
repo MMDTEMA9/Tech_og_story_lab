@@ -1,12 +1,93 @@
 ---
 import { Image } from "astro:assets";
 
-const {img, headline, text} = Astro.props;
+const {img, imgvisararbete, specialist, inriktning, subtitel, mail, telefon, erfarenhet, erfarenhettext1, erfarenhettext2, erfarenhettext3, maskot5, maskot6} = Astro.props;
 ---
+ 
+<article class="cardfototext">
+   
+<!-- venster column -->
+ <div class="venstercolumn">
+ <Image src={img} alt=`Billede af ${img}` />
 
-<article>
-    <Image src={img} alt=`Billede af ${headline}` />
-    <p>{headline}</p>
-    <p>{text}</p>
+
+ <div class="sectiontextunderfoto">
+    <p>{specialist}</p>
+    <p>{inriktning}</p>
+    <p>{subtitel}</p>
+    <p>{mail}</p>
+    <p>{telefon}</p>
+    </div>
+</div>
+
+<!-- hoger column -->
+
+ <div class="hogercolumn">
+      <Image src={imgvisararbete} alt=`Billede af en man i arbete med kameraudstyr`/>
+
+         <div class="gronruta">
+    <p>{erfarenhet}</p>
+    <p>{erfarenhettext1}</p>
+    <p>{erfarenhettext2}</p>
+         </div>
+          <p>{erfarenhettext3}</p>
+ </div>
 
 </article>
+
+
+<!------ mobil ----->
+
+<style>
+
+    /* gradient på bakgrunden */
+body{
+       background: linear-gradient(to bottom, var(--baggrundsfarve), var(--pink-salmon-lyserød), var(--disco-950-farve));
+    }
+
+/* styling av hela "cardet" foto + text */
+    .cardfototext{
+    display: flex;
+    align-items: flex-start;
+    margin-top: 15rem;
+    }
+
+    /* styling av vänstercolumn */
+.venstercolumn{
+        width: 190px;
+        margin-left: 1rem;
+     
+}
+
+/* styling av höger column */
+.hogercolumn{
+       width: 120px;
+       margin-left: 1.7rem;
+      
+}
+
+/* sectionen under foto på arbetare */
+.sectiontextunderfoto{
+    background-color: var(--pink-salmon-lyserød);
+    padding: 1rem;
+}
+
+
+/* styling av img till höger */
+ .hogercolumn img {
+    width: 120%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+}
+
+/* styling av grön ruta */
+.gronruta {
+    height: 180px;
+    background-color: var(--neongrøn-farve);
+    padding:0.5rem;
+     width: 120%; 
+    
+}
+</style>
+
