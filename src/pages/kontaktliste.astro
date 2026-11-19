@@ -15,6 +15,7 @@ import visararbete from "../assets/visararbete.webp";
 import maskot5 from "../assets/maskot5.webp";
 import maskot6 from "../assets/maskot6.webp";
 import maskot4 from "../assets/maskot4.webp";
+import kamerakontaktimg from "../assets/kamerakontakt.webp";
 import type { AstroComponentInstance } from "astro/runtime/server/index.js";
 import type { astro } from "astro/fetch";
 ---
@@ -56,19 +57,18 @@ import type { astro } from "astro/fetch";
 </div> 
      
 
-
         <section>
         <!-- Alla cards -->
-         <Kontraktcard img={frederik} imgvisararbete={visararbete} specialist="LAB-MANAGER" inriktning="EYETRACKING" subtitel="KONTAKT MIG" mail="frfr@ek.dk" telefon="+45 46 46 04 42" erfarenhet="10+ ÅR" erfarenhettext1="Erfaring inden for foto, video og produktion." erfarenhettext2="Specialiseret i visuel kommunikation og teknisk produktion."  erfarenhettext3="ERFARING OG KOMPETENCER"  />
-        <Kontraktcard img={luke} imgvisararbete={visararbete} specialist="LAB-SPECIALIST" inriktning="AI" subtitel="KONTAKT MIG" mail="frfr@ek.dk" telefon="+45 46 46 04 42"erfarenhet="10+ ÅR" erfarenhettext1="Erfaring inden for foto, video og produktion." erfarenhettext2="Specialiseret i visuel kommunikation og teknisk produktion." erfarenhettext3="ERFARING OG KOMPETENCER"/>
+         <Kontraktcard img={frederik} imgvisararbete={visararbete} specialist="LAB-MANAGER" inriktning="EYETRACKING" subtitel="KONTAKT MIG" mail="frfr@ek.dk" telefon="+45 46 46 04 42" erfarenhet="10+ ÅR" erfarenhettext1="Erfaring inden for foto, video og produktion." erfarenhettext2="Specialiseret i visuel kommunikation og teknisk produktion."  erfarenhettext3="ERFARING OG KOMPETENCER" kamerakontakt={kamerakontaktimg}  />
+        <Kontraktcard img={luke} imgvisararbete={visararbete} specialist="LAB-SPECIALIST" inriktning="AI" subtitel="KONTAKT MIG" mail="frfr@ek.dk" telefon="+45 46 46 04 42"erfarenhet="10+ ÅR" erfarenhettext1="Erfaring inden for foto, video og produktion." erfarenhettext2="Specialiseret i visuel kommunikation og teknisk produktion." erfarenhettext3="ERFARING OG KOMPETENCER" kamerakontakt={kamerakontaktimg}/>
         <div class="maskot5"> <Image src={maskot5} alt=`Billede af en crome logo`/> </div>
-        <Kontraktcard img={mikki} imgvisararbete={visararbete} specialist="LAB-ASSISTENT" inriktning="FOTO & LYDFORTÆLLING" subtitel="KONTAKT MIG" mail="frfr@ek.dk" telefon="+45 46 46 04 42"erfarenhet="10+ ÅR" erfarenhettext1="Erfaring inden for foto, video og produktion." erfarenhettext2="Specialiseret i visuel kommunikation og teknisk produktion." erfarenhettext3="ERFARING OG KOMPETENCER"/>
-        <Kontraktcard img={kristoffer} imgvisararbete={visararbete} specialist="LAB-ASSISTENT" inriktning="LYS & KODE" subtitel="KONTAKT MIG" mail="frfr@ek.dk" telefon="+45 46 46 04 42"erfarenhet="10+ ÅR" erfarenhettext1="Erfaring inden for foto, video og produktion." erfarenhettext2="Specialiseret i visuel kommunikation og teknisk produktion." erfarenhettext3="ERFARING OG KOMPETENCER"/>
+        <Kontraktcard img={mikki} imgvisararbete={visararbete} specialist="LAB-ASSISTENT" inriktning="FOTO & LYDFORTÆLLING" subtitel="KONTAKT MIG" mail="frfr@ek.dk" telefon="+45 46 46 04 42"erfarenhet="10+ ÅR" erfarenhettext1="Erfaring inden for foto, video og produktion." erfarenhettext2="Specialiseret i visuel kommunikation og teknisk produktion." erfarenhettext3="ERFARING OG KOMPETENCER" kamerakontakt={kamerakontaktimg}/>
+        <Kontraktcard img={kristoffer} imgvisararbete={visararbete} specialist="LAB-ASSISTENT" inriktning="LYS & KODE" subtitel="KONTAKT MIG" mail="frfr@ek.dk" telefon="+45 46 46 04 42"erfarenhet="10+ ÅR" erfarenhettext1="Erfaring inden for foto, video og produktion." erfarenhettext2="Specialiseret i visuel kommunikation og teknisk produktion." erfarenhettext3="ERFARING OG KOMPETENCER" kamerakontakt={kamerakontaktimg}/>
          <div class="maskot6"> <Image src={maskot6} alt=`Billede af en crome logo`/> </div>
-        <Kontraktcard img={nicolas} imgvisararbete={visararbete} specialist="FOTO" subtitel="KONTAKT MIG" mail="frfr@ek.dk" telefon="+45 46 46 04 42"erfarenhet="10+ ÅR" erfarenhettext1="Erfaring inden for foto, video og produktion." erfarenhettext2="Specialiseret i visuel kommunikation og teknisk produktion." erfarenhettext3="ERFARING OG KOMPETENCER"/>
-        <Kontraktcard img={emelie} imgvisararbete={visararbete} specialist="LYDFORTÆLLING" subtitel="KONTAKT MIG" mail="frfr@ek.dk" telefon="+45 46 46 04 42"erfarenhet="10+ ÅR" erfarenhettext1="Erfaring inden for foto, video og produktion." erfarenhettext2="Specialiseret i visuel kommunikation og teknisk produktion."erfarenhettext3="ERFARING OG KOMPETENCER"/>
+        <Kontraktcard img={nicolas} imgvisararbete={visararbete} specialist="FOTO" subtitel="KONTAKT MIG" mail="frfr@ek.dk" telefon="+45 46 46 04 42"erfarenhet="10+ ÅR" erfarenhettext1="Erfaring inden for foto, video og produktion." erfarenhettext2="Specialiseret i visuel kommunikation og teknisk produktion." erfarenhettext3="ERFARING OG KOMPETENCER" kamerakontakt={kamerakontaktimg}/>
+        <Kontraktcard img={emelie} imgvisararbete={visararbete} specialist="LYDFORTÆLLING" subtitel="KONTAKT MIG" mail="frfr@ek.dk" telefon="+45 46 46 04 42"erfarenhet="10+ ÅR" erfarenhettext1="Erfaring inden for foto, video og produktion." erfarenhettext2="Specialiseret i visuel kommunikation og teknisk produktion."erfarenhettext3="ERFARING OG KOMPETENCER" kamerakontakt={kamerakontaktimg}/>
          <div class="maskot4"> <Image src={maskot4} alt=`Billede af en crome logo`/> </div>
-        <Kontraktcard img={daniel} imgvisararbete={visararbete} specialist="VIDEO" subtitel="KONTAKT MIG" mail="frfr@ek.dk" telefon="+45 46 46 04 42"erfarenhet="10+ ÅR" erfarenhettext1="Erfaring inden for foto, video og produktion." erfarenhettext2="Specialiseret i visuel kommunikation og teknisk produktion."erfarenhettext3="ERFARING OG KOMPETENCER"/>
+        <Kontraktcard img={daniel} imgvisararbete={visararbete} specialist="VIDEO" subtitel="KONTAKT MIG" mail="frfr@ek.dk" telefon="+45 46 46 04 42"erfarenhet="10+ ÅR" erfarenhettext1="Erfaring inden for foto, video og produktion." erfarenhettext2="Specialiseret i visuel kommunikation og teknisk produktion."erfarenhettext3="ERFARING OG KOMPETENCER" kamerakontakt={kamerakontaktimg}/>
         </section>
 
 
@@ -177,6 +177,7 @@ position: absolute;
         background-repeat: no-repeat;
         min-height: 110vh;
     }
+
 
   
   }

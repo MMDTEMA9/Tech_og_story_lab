@@ -1,7 +1,7 @@
 ---
 import { Image } from "astro:assets";
 
-const {img, imgvisararbete, specialist, inriktning, subtitel, mail, telefon, erfarenhet, erfarenhettext1, erfarenhettext2, erfarenhettext3, maskot5, maskot6} = Astro.props;
+const {img, imgvisararbete, kamerakontakt, specialist, inriktning, subtitel, mail, telefon, erfarenhet, erfarenhettext1, erfarenhettext2, erfarenhettext3, maskot5, maskot6} = Astro.props;
 ---
  
 <article class="cardfototext">
@@ -30,9 +30,16 @@ const {img, imgvisararbete, specialist, inriktning, subtitel, mail, telefon, erf
     <h6 class="h6_special_sort">{erfarenhettext1}</h6>
     <h6 class="h6_special_sort">{erfarenhettext2}</h6>
          </div>
+         <div class="citat">
+    <p>Gode idéer starter med nysgerrighed.</p>
+</div>
+
+<div class="ekstrabilled">
+    <Image src={kamerakontakt} alt=`Billede pa en kamera` />
           <h5 class="h5_special_rod">{erfarenhettext3}</h5>
  </div>
 
+</div>
 </article>
 
 
@@ -94,5 +101,98 @@ body{
 .gronruta h6{
     margin-top: 0.5rem;
 }
+
+/* de två extra elementerna ska inte visas i mobile version */
+.citat,
+.ekstrabilled {
+    display: none;
+}
+
+
+
+  /***** DESKTOP *****/
+  /* Alt herinde gælder kun når skærmen er 768px eller bredere */
+
+  @media (min-width: 768px) {
+.cardfototext {
+    display: flex;
+        justify-content: center;
+}
+        /* de två sista elementerna visas i desktop */
+    .citat,
+    .ekstrabilled {
+        display: block;
+    
+}
+
+/* ändring av layout grid i desktop */
+    .cardfototext {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr 1fr;
+        grid-template-rows: repeat(4, 1fr);
+        align-items: stretch;
+        gap: 1rem;
+        width: 80%;
+        margin: 8rem auto 0;
+    }
+
+    .venstercolumn {
+        grid-column: 1;
+        grid-row: 1 / 4;
+        width: 100%;
+        margin: 0;
+    }
+
+    .venstercolumn img {
+        width: 100%;
+        display: block;
+    }
+
+    .hogercolumn {
+        display: contents;
+    }
+
+    .hogercolumn img {
+        grid-column: 2;
+        grid-row: 1/2;
+        width: 100%;
+    }
+
+    .gronruta {
+        grid-column: 3;
+        grid-row: 1/2;
+         height: auto;
+    width: 100%;
+        background-color: var(--pink-salmon-lyserød);
+    }
+
+    .hogercolumn h5 {
+        grid-column: 3;
+        grid-row: 2;
+    }
+
+    .citat {
+        grid-column: 2;
+         grid-row: 2/ 4;
+         background-color: var(--neongrøn-farve);
+         padding: 2rem;
+          height: 280px;
+    }
+    .citat p{
+          font-style: italic;
+    }
+    .ekstrabilled {
+        grid-column: 3;
+        grid-row: 2/4;
+         height: 280px;
+    }
+
+    .ekstrabilled img {
+    width: 100%;
+    height: 100%;
+}
+}
+
+
 </style>
 
