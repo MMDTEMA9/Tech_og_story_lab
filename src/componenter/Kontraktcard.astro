@@ -12,11 +12,11 @@ const {img, imgvisararbete, specialist, inriktning, subtitel, mail, telefon, erf
 
 
  <div class="sectiontextunderfoto">
-    <p>{specialist}</p>
-    <p>{inriktning}</p>
-    <p>{subtitel}</p>
-    <p>{mail}</p>
-    <p>{telefon}</p>
+    <h4 class="h4_special_rod">{specialist}</h4>
+    <h4 class="h4_special_rod">{inriktning}</h4>
+    <h5 class="h5_special_rod ">{subtitel}</h5>
+    <h6 class="h6_special_sort">{mail}</h6>
+    <h6 class="h6_special_sort">{telefon}</h6>
     </div>
 </div>
 
@@ -26,11 +26,11 @@ const {img, imgvisararbete, specialist, inriktning, subtitel, mail, telefon, erf
       <Image src={imgvisararbete} alt=`Billede af en man i arbete med kameraudstyr`/>
 
          <div class="gronruta">
-    <p>{erfarenhet}</p>
-    <p>{erfarenhettext1}</p>
-    <p>{erfarenhettext2}</p>
+    <h4 class="h4_special_rod">{erfarenhet}</h4>
+    <h6 class="h6_special_sort">{erfarenhettext1}</h6>
+    <h6 class="h6_special_sort">{erfarenhettext2}</h6>
          </div>
-          <p>{erfarenhettext3}</p>
+          <h5 class="h5_special_rod">{erfarenhettext3}</h5>
  </div>
 
 </article>
@@ -84,13 +84,15 @@ body{
 
 /* styling av grön ruta */
 .gronruta {
-    height: 180px;
+    height: 170px;
     background-color: var(--neongrøn-farve);
     padding:0.5rem;
      width: 120%; 
     
 }
 
-
+.gronruta h6{
+    margin-top: 0.5rem;
+}
 </style>
 

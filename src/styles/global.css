@@ -158,6 +158,52 @@ h2 {
   white-space: nowrap; /* forhindrer at teksten brydes til næste linje */
 }
 /******************************************************************/
+/* Skal kun bruges till kontaktsida pga fel i fonter */
+
+/* mobilfont */
+.h2_special_vit {
+  font-family: "oso-serif-semicondensed", sans-serif;
+  font-size: var(--h2-font-size);
+  font-weight: bold;
+  line-height: var(--lineheight);
+  color: var(--baggrundsfarve);
+}
+
+.h3_special_vit {
+  font-family: "oso-serif-semicondensed", sans-serif;
+  font-size: var(--h3-font-size);
+  font-weight: normal;
+  line-height: var(--lineheight);
+  color: var(--baggrundsfarve);
+}
+
+.h4_special_rod {
+  font-family: "oso-serif-semicondensed", sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  font-style: none;
+  line-height: var(--lineheight);
+  color: var(--disco-950-farve);
+}
+
+.h5_special_rod {
+  font-family: "oso-serif-semicondensed", sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  font-style: none;
+  line-height: var(--lineheight);
+  color: var(--disco-950-farve);
+}
+
+.h6_special_sort {
+  font-family: "oso-serif-semicondensed", sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  font-style: none;
+  line-height: var(--lineheight);
+  color: var(--mørkegrå-farve);
+}
+/******************************************************************/
 
 h3 {
   font-family: "oso-sans", sans-serif;
