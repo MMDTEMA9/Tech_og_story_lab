@@ -3,6 +3,7 @@
    Det er her, vi har header, footer og global.css. */
 import PageLayout from "../../layouts/PageLayout.astro";
 import "../../styles/global.css";
+// Der står ../../ fordi filen ligger inde i mappen udstyr. Så skal vi to mapper op for at finde layouts og styles.
 
 // Kortet til udstyr, som også bruges i listview
 import UdstyrKort from "../../componenter/cards-udstyr.astro";
@@ -18,12 +19,19 @@ import kaffekop from "../../assets/Detailview-billeder/Kaffekop.png";
 import person from "../../assets/Detailview-billeder/Person.png";
 import kortfilm from "../../assets/Detailview-billeder/Kortfilm.png";
 
-// Laver én underside for hvert produkt i Supabase.
-// Variablerne skal stå herinde, fordi funktionen ikke kan se resten af filen.
+/* getStaticPaths laver én underside for hvert produkt i Supabase.
+   Filen hedder [singlepage].astro, og de firkantede parenteser betyder at [singlepage] bliver skiftet ud med noget.
+   Her bliver den skiftet ud med produktets id. Så /udstyr/14 er siden for produktet med id 14.
+   Variablerne skal stå herinde, fordi funktionen ikke kan se resten af filen. */
 export async function getStaticPaths() {
   const apiurl = "https://hycvaeerhjimzwdnycyq.supabase.co/rest/v1/";
+  // Basis-URL'en til vores Supabase-database
+
   const udstyrTableName = "udstyr";
+  // Navnet på tabellen vi henter fra
+
   const key = "sb_publishable_ci0x6ZnxAsDcDBjvVDKdXA_dC-IEzLE";
+  // Vores API-nøgle, som vi har fået fra Supabase
 
   const options = {
     headers: {
@@ -31,41 +39,62 @@ export async function getStaticPaths() {
     }
   };
 
+  // Henter alt udstyret fra Supabase og laver det om til JSON, så vi kan bruge det
   const udstyrResponse = await fetch(apiurl + udstyrTableName, options);
   const udstyrData = await udstyrResponse.json();
 
+  /* .map går igennem alle produkterne én ad gangen og laver en side til hvert af dem.
+     params: det der skal stå i URL'en. singlepage skal hedde det samme som filnavnet [singlepage].
+     String() laver id'et om til tekst, fordi URL'en skal være tekst.
+     props: det vi sender med ind på siden, altså produktet og hele listen med udstyr. */
   return udstyrData.map((produkt) => ({
     params: { singlepage: String(produkt.id) },
     props: { produkt, udstyrData },
   }));
 }
 
-// Det produkt, man har klikket på, og alt udstyret
+// Her henter vi det produkt, man har klikket på, og hele listen med udstyr fra props
 const { produkt, udstyrData } = Astro.props;
+
+/* Det her gør at "Andre har brugt det med" ændrer sig efter hvilket produkt man står på.
+   .filter går igennem hele listen og beholder kun det udstyr, hvor kategorien IKKE er den samme som produktets.
+   !== betyder "er ikke lig med".
+   Så står man på et kamera, bliver alle kameraer sorteret fra, og man får fx mikrofoner og stativer i stedet. */
+const andetUdstyr = udstyrData.filter((item) => item.category !== produkt.category);
 ---
 
 <PageLayout title={produkt.name}>
+<!-- title={produkt.name} gør at fanen i browseren viser navnet på produktet -->
 
-  <!-- Produktet. Navn og billede kommer fra Supabase -->
+  <!-- SEKTION 1: Produktet. Navn og billede kommer fra Supabase, så det er dynamisk.
+       Astro bruger { } til at skrive JavaScript ind i HTML'en. Man bruger kun $ når det er inde i backticks. -->
   <section class="sektion1">
+    <!-- Tilbagefuglen fører tilbage til listview -->
     <a href="/udstyrsliste">
       <Image src={tilbagefugl} alt="Tilbage til udstyrslisten" class="tilbagefugl" />
     </a>
     <h2 class="h2_special_lyserød">{produkt.name}</h2>
+    <!-- Almindelig img og ikke Image, fordi billedet kommer fra en URL i Supabase og ikke fra vores assets-mappe -->
     <img class="produkt-billede" src={produkt.image} alt={produkt.name} />
   </section>
 
+  <!-- SEKTION 2 -->
   <section class="sektion2">
     <h2>KONTAKT MATHILDA LAVER</h2>
   </section>
 
-  <!-- Projekter taget med udstyret -->
-  <section class="sektion3 gradient_pink-salmon-lyserød-baggrundsfarve">
+  <!-- SEKTION 3: Projekter taget med udstyret.
+       Gradienten kommer fra global.css. Det er to klasser, så der skal være mellemrum imellem og ikke punktum. -->
+  <section class="sektion3 gradient_pink-salmon-lyserød baggrundsfarve">
+    <!-- Det grønne skrå bånd i hjørnet -->
     <p class="skraa-baand">Taget med kameraet</p>
 
+    <!-- Det store billede. Til venstre på desktop og øverst på mobil -->
     <Image src={hovedprojekt} alt="Hovedprojekt taget med udstyret" />
 
+    <!-- Den her div holder de små billeder og overskriften sammen, så de står i samme kolonne -->
     <div>
+      <!-- De 4 små billeder. Grid lægger dem automatisk 2 og 2 -->
       <div class="smaa-billeder">
         <Image src={portræt} alt="Portræt" />
         <Image src={kaffekop} alt="Kaffekop på et bord" />
@@ -76,25 +105,33 @@ const { produkt, udstyrData } = Astro.props;
     </div>
   </section>
 
-  <!-- Andet udstyr. [0], [1] og [2] er de første 3 produkter i listen -->
+  <!-- SEKTION 4: Andre har brugt det med.
+       Vi bruger andetUdstyr og ikke udstyrData, så det er filtreret efter produktet.
+       [0], [1] og [2] er de første 3 i den filtrerede liste.
+       img, headline og id bliver sendt med ind i komponenten som props. -->
   <section class="sektion4">
-    <h2>Andet udstyr</h2>
+    <h2>Andre har brugt det med:</h2>
     <div class="kort-liste">
-      <UdstyrKort img={udstyrData[0].image} headline={udstyrData[0].name} id={udstyrData[0].id} />
-      <UdstyrKort img={udstyrData[1].image} headline={udstyrData[1].name} id={udstyrData[1].id} />
-      <UdstyrKort img={udstyrData[2].image} headline={udstyrData[2].name} id={udstyrData[2].id} />
+      <UdstyrKort img={andetUdstyr[0].image} headline={andetUdstyr[0].name} id={andetUdstyr[0].id} />
+      <UdstyrKort img={andetUdstyr[1].image} headline={andetUdstyr[1].name} id={andetUdstyr[1].id} />
+      <UdstyrKort img={andetUdstyr[2].image} headline={andetUdstyr[2].name} id={andetUdstyr[2].id} />
     </div>
   </section>
+
+  <!-- Tom div med gradienten fra global.css. Den laver overgangen fra siden ned i footeren,
+       så fade'et først starter under kortene -->
+  <div class="fade gradient_baggrundsfarve --disco-950-farve"></div>
 
 </PageLayout>
 
 <style>
   /***** MOBIL *****/
+  /* Vi styler mobil først, og så ændrer vi det der skal være anderledes på desktop i media queryen nederst */
 
-  /* Sektion 1 */
+  /* --- SEKTION 1 --- */
   .sektion1 {
-    background-color: var(--disco-950-farve);
-    padding: 1.5rem 1rem 3rem;
+    background-color: var(--disco-950-farve); /* farven kommer fra variablerne i global.css */
+    padding: 1.5rem 1rem 3rem; /* top, sider, bund */
   }
 
   .tilbagefugl {
@@ -103,28 +140,28 @@ const { produkt, udstyrData } = Astro.props;
 
   .sektion1 h2 {
     text-align: center;
-    white-space: normal; /* lange navne må gå på to linjer på mobil */
-    margin-block: 1rem 2rem;
+    white-space: normal; /* global.css har nowrap på h2_special, men på mobil må lange navne gå på to linjer */
+    margin-block: 1rem 2rem; /* luft over og under navnet */
   }
 
   .produkt-billede {
     width: 90%;
-    margin-inline: auto;
+    margin-inline: auto; /* centrerer billedet */
   }
 
-  /* Sektion 2 */
+  /* --- SEKTION 2 --- */
   .sektion2 {
     padding: 2rem 1rem;
     text-align: center;
   }
 
-  /* Sektion 3 */
+  /* --- SEKTION 3 --- */
   .sektion3 {
-    position: relative; /* så båndet placeres i forhold til sektionen */
-    overflow: hidden;   /* skjuler det af båndet, der stikker ud */
-    display: grid;
+    position: relative; /* så det grønne bånd bliver placeret i forhold til sektionen og ikke hele siden */
+    overflow: hidden;   /* skjuler det af båndet, der stikker ud over kanten */
+    display: grid;      /* på mobil er der kun én kolonne, så alt står under hinanden */
     gap: 2rem;
-    padding: 6rem 1rem 3rem;
+    padding: 6rem 1rem 3rem; /* ekstra luft i toppen, så båndet ikke dækker billedet */
   }
 
   .sektion3 h3 {
@@ -133,10 +170,10 @@ const { produkt, udstyrData } = Astro.props;
 
   /* Det grønne bånd i hjørnet */
   .skraa-baand {
-    position: absolute;
-    top: 1.5rem;
-    left: -4rem;
-    width: 14rem;
+    position: absolute; /* tager båndet ud af griddet, så det ligger ovenpå og ikke skubber til billederne */
+    top: 3rem;   /* jo større top, jo længere inde sidder båndet */
+    left: -4rem; /* minus gør at båndet starter uden for kanten */
+    width: 18rem; /* så langt at det når ud over kanten i begge ender */
     padding: 0.5rem 0;
     background-color: var(--neongrøn-farve);
     color: var(--disco-950-farve);
@@ -144,23 +181,24 @@ const { produkt, udstyrData } = Astro.props;
     font-weight: bold;
     font-style: italic;
     text-align: center;
-    transform: rotate(-45deg);
+    white-space: nowrap; /* teksten bliver på én linje */
+    transform: rotate(-45deg); /* drejer båndet skråt */
   }
 
   /* De 4 små billeder, 2 og 2 */
   .smaa-billeder {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr; /* 2 lige brede kolonner. Når der er 4 billeder, bliver det automatisk 2 rækker */
     gap: 0.75rem;
     margin-bottom: 1rem;
   }
 
   .smaa-billeder img {
-    aspect-ratio: 1; /* gør billedet kvadratisk */
-    object-fit: cover;
+    aspect-ratio: 1;   /* gør billedet kvadratisk */
+    object-fit: cover; /* fylder ud uden at blive strakt */
   }
 
-  /* Sektion 4: kortene under hinanden på mobil */
+  /* --- SEKTION 4: kortene under hinanden på mobil --- */
   .sektion4 {
     padding: 2rem 1rem 3rem;
   }
@@ -170,13 +208,21 @@ const { produkt, udstyrData } = Astro.props;
   }
 
   .kort-liste {
-    display: grid;
+    display: grid; /* kun én kolonne på mobil, så kortene står under hinanden */
     gap: 1.5rem;
     margin-top: 1.5rem;
   }
 
+  /* Overgangen fra siden ned i footeren. Højden bestemmer hvor lang fade'et er */
+  .fade {
+    height: 8rem;
+  }
+
   /***** DESKTOP *****/
+  /* Alt herinde gælder kun når skærmen er 1000px eller bredere, ligesom i global.css */
   @media (min-width: 1000px) {
+
+    /* --- SEKTION 1 --- */
     .sektion1 {
       padding: 2rem 5rem 4rem;
     }
@@ -193,13 +239,14 @@ const { produkt, udstyrData } = Astro.props;
       width: 50%;
     }
 
+    /* --- SEKTION 2 --- */
     .sektion2 {
       padding: 4rem 5rem;
     }
 
-    /* Stort billede til venstre, små billeder til højre */
+    /* --- SEKTION 3: stort billede til venstre, små billeder til højre --- */
     .sektion3 {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr; /* 2 kolonner ved siden af hinanden */
       gap: 4rem;
       padding: 8rem 5rem 4rem;
     }
@@ -208,15 +255,16 @@ const { produkt, udstyrData } = Astro.props;
       gap: 1rem;
     }
 
+    /* Større bånd på desktop */
     .skraa-baand {
-      top: 4rem;
+      top: 5rem;
       left: -5rem;
-      width: 22rem;
+      width: 26rem;
       padding: 1.5rem 0;
       font-size: 1.5rem;
     }
 
-    /* 3 kort ved siden af hinanden */
+    /* --- SEKTION 4: 3 kort ved siden af hinanden --- */
     .sektion4 {
       padding: 4rem 5rem;
     }
@@ -226,8 +274,13 @@ const { produkt, udstyrData } = Astro.props;
     }
 
     .kort-liste {
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr; /* 3 lige brede kolonner */
       gap: 2rem;
+    }
+
+    /* Længere fade på desktop */
+    .fade {
+      height: 12rem;
     }
   }
 </style>
