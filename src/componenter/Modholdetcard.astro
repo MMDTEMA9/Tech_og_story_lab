@@ -1,0 +1,24 @@
+---
+import { Image } from "astro:assets";
+
+const {img, text} = Astro.props;
+---
+ 
+<article class="holdetcard">
+ <Image src={img} alt=`Billede af ${img}` />
+ <p>{text}</p>
+</article>
+
+
+<!-- layout -->
+
+<style>
+
+.holdetcard p{
+    background-color: var(--neongrøn-farve);
+   padding: 0.2rem;
+    
+  
+}
+
+</style>

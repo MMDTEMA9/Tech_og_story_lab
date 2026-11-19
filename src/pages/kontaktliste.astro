@@ -1,7 +1,8 @@
 ---
 import "../styles/global.css";
-
+import PageLayout from "../layouts/PageLayout.astro";
 import Kontraktcard from "../componenter/Kontraktcard.astro";
+import Modholdetcard from "../componenter/Modholdetcard.astro";
 import { Image } from "astro:assets";
 import frederik from "../assets/Frederik.webp";
 import luke from "../assets/Luke.webp";
@@ -11,24 +12,51 @@ import nicolas from "../assets/Nicolas.webp";
 import emelie from "../assets/Emelie.webp";
 import daniel from "../assets/Daniel.webp";
 import visararbete from "../assets/visararbete.webp";
+import maskot2 from "../assets/maskot2.webp";
 import maskot5 from "../assets/maskot5.webp";
 import maskot6 from "../assets/maskot6.webp";
-import maskot7 from "../assets/maskot4.webp";
+import maskot4 from "../assets/maskot4.webp";
 import type { AstroComponentInstance } from "astro/runtime/server/index.js";
 import type { astro } from "astro/fetch";
 ---
 
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <link rel="icon" href="/favicon.ico" />
-        <meta name="viewport" content="width=device-width" />
-        <meta name="generator" content={Astro.generator} />
-        <title>Kontaktliste</title>
-    </head>
-    <body>
+<PageLayout title="kontaktliste">
+       <div class="marginruntom">
+ <section class="holdetcard">
+            <div class="frederik">
+            <Modholdetcard img={frederik} text={"Frederik"} />
+       </div>
+           <div class="luke">
+            <Modholdetcard img={luke} text={"Luke"} />
+           </div>
+             <div class="mikki">
+            <Modholdetcard img={mikki} text={"Mikki"}/>
+             </div>
+              <div class="kristoffer">
+            <Modholdetcard img={kristoffer} text={"Kristoffer"}/>
+             </div>
+
+            <div class="overskrift">
+                    <h2>MØD HOLDET</h2>
+                    <h2>PÅ TECH & STORY LAB</h2>
+            </div>
         
+                  <div class="nicolas">
+            <Modholdetcard img={nicolas} text={"Nicolas"}/>
+                   </div>
+                     <div class="emelie">
+            <Modholdetcard img={emelie} text={"Emelie"} />
+                  </div>
+                   <div class="daniel">
+            <Modholdetcard img={daniel} text={"Daniel"}/>
+     </div>
+     
+            </section>
+    
+</div> 
+        <div class="maskot2"> <Image src={maskot2} alt=`Billede af en crome logo`/> </div>
+
+
         <section>
         <!-- Alla cards -->
          <Kontraktcard img={frederik} imgvisararbete={visararbete} specialist="LAB-MANAGER" inriktning="EYETRACKING" subtitel="KONTAKT MIG" mail="frfr@ek.dk" telefon="+45 46 46 04 42" erfarenhet="10+ ÅR" erfarenhettext1="Erfaring inden for foto, video og produktion." erfarenhettext2="Specialiseret i visuel kommunikation og teknisk produktion."  erfarenhettext3="ERFARING OG KOMPETENCER"  />
@@ -39,25 +67,86 @@ import type { astro } from "astro/fetch";
          <div class="maskot6"> <Image src={maskot6} alt=`Billede af en crome logo`/> </div>
         <Kontraktcard img={nicolas} imgvisararbete={visararbete} specialist="FOTO" subtitel="KONTAKT MIG" mail="frfr@ek.dk" telefon="+45 46 46 04 42"erfarenhet="10+ ÅR" erfarenhettext1="Erfaring inden for foto, video og produktion." erfarenhettext2="Specialiseret i visuel kommunikation og teknisk produktion." erfarenhettext3="ERFARING OG KOMPETENCER"/>
         <Kontraktcard img={emelie} imgvisararbete={visararbete} specialist="LYDFORTÆLLING" subtitel="KONTAKT MIG" mail="frfr@ek.dk" telefon="+45 46 46 04 42"erfarenhet="10+ ÅR" erfarenhettext1="Erfaring inden for foto, video og produktion." erfarenhettext2="Specialiseret i visuel kommunikation og teknisk produktion."erfarenhettext3="ERFARING OG KOMPETENCER"/>
-         <div class="maskot7"> <Image src={maskot7} alt=`Billede af en crome logo`/> </div>
+         <div class="maskot4"> <Image src={maskot4} alt=`Billede af en crome logo`/> </div>
         <Kontraktcard img={daniel} imgvisararbete={visararbete} specialist="VIDEO" subtitel="KONTAKT MIG" mail="frfr@ek.dk" telefon="+45 46 46 04 42"erfarenhet="10+ ÅR" erfarenhettext1="Erfaring inden for foto, video og produktion." erfarenhettext2="Specialiseret i visuel kommunikation og teknisk produktion."erfarenhettext3="ERFARING OG KOMPETENCER"/>
         </section>
 
 
-    </body>
-</html>
-
+       
+</PageLayout>
+   
 <style>
     /* stylar maskotarna på sidan. margin-left auto lägger maskoten så mycket margin som möjligt till vänster om elementet. Position absolute gör att jag kan placera maskot vart jag vill */
-  .maskot5, .maskot6{
+ 
+    .maskot5, .maskot6{
  width: 40%;
 position: absolute;
-
 }
 
-.maskot7{
+.maskot4{
      width: 30%;
      position: absolute;
+ 
+}
+
+.maskot2{
+    width: 30%;
+  margin: 5rem;
 }
  
+/* enkel styling på mødholdet */
+.marginruntom{
+    margin: 1rem;
+    border: 20px solid var(--disco-950-farve);
+    background-color: var(--disco-950-farve);
+}
+
+
+/* layout på grid för "mødholdet" */
+
+.holdetcard {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+}
+
+.holdetcard .frederik {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.luke {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.mikki {
+    grid-column: 3;
+    grid-row: 1;
+}
+
+.kristoffer {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.overskrift {
+    grid-column: 2 / 4;
+    grid-row: 2;
+}
+
+.nicolas {
+    grid-column: 1;
+    grid-row: 3;
+}
+
+.emelie {
+    grid-column: 2;
+    grid-row: 3;
+}
+
+.daniel {
+    grid-column: 3;
+    grid-row: 3;
+    }
 </style>
