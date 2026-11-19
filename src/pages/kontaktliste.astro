@@ -10,6 +10,10 @@ import kristoffer from "../assets/Kristoffer.webp";
 import nicolas from "../assets/Nicolas.webp";
 import emelie from "../assets/Emelie.webp";
 import daniel from "../assets/Daniel.webp";
+import visararbete from "../assets/visararbete.webp";
+import maskot5 from "../assets/maskot5.webp";
+import maskot6 from "../assets/maskot6.webp";
+import maskot7 from "../assets/maskot4.webp";
 import type { AstroComponentInstance } from "astro/runtime/server/index.js";
 import type { astro } from "astro/fetch";
 ---
@@ -24,19 +28,36 @@ import type { astro } from "astro/fetch";
         <title>Kontaktliste</title>
     </head>
     <body>
-         <Image src={frederik} alt="Billede af Frederik"/>
-        <p>LAB-MANAGER</p>
-        <p>EYETRACKING</p>
-
-        <section>   
-        <Kontraktcard img={luke} headline="LAB-SPECIALIST" text="AI"/>
-        <Kontraktcard img={mikki} headline="LAB-ASSISTENT" text="FOTO & LYDFORTÆLLING"/>
-        <Kontraktcard img={kristoffer} headline="LAB-ASSISTENT" text="LYS & KODE"/>
-        <Kontraktcard img={nicolas} headline="FOTO"/>
-        <Kontraktcard img={emelie} headline="LYDFORTÆLLING"/>
-        <Kontraktcard img={daniel}headline="VIDEO"/>
-        </section>
         
+        <section>
+        <!-- Alla cards -->
+         <Kontraktcard img={frederik} imgvisararbete={visararbete} specialist="LAB-MANAGER" inriktning="EYETRACKING" subtitel="KONTAKT MIG" mail="frfr@ek.dk" telefon="+45 46 46 04 42" erfarenhet="10+ ÅR" erfarenhettext1="Erfaring inden for foto, video og produktion." erfarenhettext2="Specialiseret i visuel kommunikation og teknisk produktion."  erfarenhettext3="ERFARING OG KOMPETENCER"  />
+        <Kontraktcard img={luke} imgvisararbete={visararbete} specialist="LAB-SPECIALIST" inriktning="AI" subtitel="KONTAKT MIG" mail="frfr@ek.dk" telefon="+45 46 46 04 42"erfarenhet="10+ ÅR" erfarenhettext1="Erfaring inden for foto, video og produktion." erfarenhettext2="Specialiseret i visuel kommunikation og teknisk produktion." erfarenhettext3="ERFARING OG KOMPETENCER"/>
+        <div class="maskot5"> <Image src={maskot5} alt=`Billede af en crome logo`/> </div>
+        <Kontraktcard img={mikki} imgvisararbete={visararbete} specialist="LAB-ASSISTENT" inriktning="FOTO & LYDFORTÆLLING" subtitel="KONTAKT MIG" mail="frfr@ek.dk" telefon="+45 46 46 04 42"erfarenhet="10+ ÅR" erfarenhettext1="Erfaring inden for foto, video og produktion." erfarenhettext2="Specialiseret i visuel kommunikation og teknisk produktion." erfarenhettext3="ERFARING OG KOMPETENCER"/>
+        <Kontraktcard img={kristoffer} imgvisararbete={visararbete} specialist="LAB-ASSISTENT" inriktning="LYS & KODE" subtitel="KONTAKT MIG" mail="frfr@ek.dk" telefon="+45 46 46 04 42"erfarenhet="10+ ÅR" erfarenhettext1="Erfaring inden for foto, video og produktion." erfarenhettext2="Specialiseret i visuel kommunikation og teknisk produktion." erfarenhettext3="ERFARING OG KOMPETENCER"/>
+         <div class="maskot6"> <Image src={maskot6} alt=`Billede af en crome logo`/> </div>
+        <Kontraktcard img={nicolas} imgvisararbete={visararbete} specialist="FOTO" subtitel="KONTAKT MIG" mail="frfr@ek.dk" telefon="+45 46 46 04 42"erfarenhet="10+ ÅR" erfarenhettext1="Erfaring inden for foto, video og produktion." erfarenhettext2="Specialiseret i visuel kommunikation og teknisk produktion." erfarenhettext3="ERFARING OG KOMPETENCER"/>
+        <Kontraktcard img={emelie} imgvisararbete={visararbete} specialist="LYDFORTÆLLING" subtitel="KONTAKT MIG" mail="frfr@ek.dk" telefon="+45 46 46 04 42"erfarenhet="10+ ÅR" erfarenhettext1="Erfaring inden for foto, video og produktion." erfarenhettext2="Specialiseret i visuel kommunikation og teknisk produktion."erfarenhettext3="ERFARING OG KOMPETENCER"/>
+         <div class="maskot7"> <Image src={maskot7} alt=`Billede af en crome logo`/> </div>
+        <Kontraktcard img={daniel} imgvisararbete={visararbete} specialist="VIDEO" subtitel="KONTAKT MIG" mail="frfr@ek.dk" telefon="+45 46 46 04 42"erfarenhet="10+ ÅR" erfarenhettext1="Erfaring inden for foto, video og produktion." erfarenhettext2="Specialiseret i visuel kommunikation og teknisk produktion."erfarenhettext3="ERFARING OG KOMPETENCER"/>
+        </section>
+
+
     </body>
 </html>
 
+<style>
+    /* stylar maskotarna på sidan. margin-left auto lägger maskoten så mycket margin som möjligt till vänster om elementet. Position absolute gör att jag kan placera maskot vart jag vill */
+  .maskot5, .maskot6{
+ width: 40%;
+position: absolute;
+
+}
+
+.maskot7{
+     width: 30%;
+     position: absolute;
+}
+ 
+</style>
