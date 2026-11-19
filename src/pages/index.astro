@@ -1,5 +1,5 @@
 ---
-/* Importerer PageLayout, som er vores layout for alle siderne.
+/* Importerer PageLayout, som er vores layout for alle sslugerne.
    Det er her, vi har header, footer og global.css. */
 import PageLayout from "../layouts/PageLayout.astro";
 import udstyrBord from "../assets/udstyr-bord.webp";
@@ -18,8 +18,8 @@ import herobillede from "../assets/udstyr.webp";
 import maskot1 from "../assets/maskot1.webp";
 import maskot2 from "../assets/maskot2.webp";
 import maskot4 from "../assets/maskot4.webp";
-import kamera from "../assets/forside-billeder/kamera-10000.webp";
-import arcade from "../assets/forside-billeder/arcade.webp";
+import kamera from "../assets/forssluge-billeder/kamera-10000.webp";
+import arcade from "../assets/forssluge-billeder/arcade.webp";
 
 const apiurl = "https://hycvaeerhjimzwdnycyq.supabase.co/rest/v1/";
 // Basis-URL'en til vores Supabase-database. URL'en bruges som start-adresse i både udstyrResponse og kontaktResponse.
@@ -48,8 +48,8 @@ console.log("kontaktData", kontaktData);
 ---
 
 <!-- PageLayout er rammen. Alt mellem <PageLayout> og </PageLayout> kommer ind ved <slot /> i PageLayout.astro -->
-<PageLayout title="Forside">
-  <section class="forside">
+<PageLayout title="Forssluge">
+  <section class="forssluge">
 
     <section class="hero">
       <h2 class="h2_special_lyserød">TECH &</h2>
@@ -72,7 +72,7 @@ console.log("kontaktData", kontaktData);
         </div>
       </div>
 
-      <!-- Kategorierne ligger nu inde i .intro, så de kan stå i venstre kolonne ved siden af 10.000 på desktop.
+      <!-- Kategorierne ligger nu inde i .intro, så de kan stå i venstre kolonne ved sslugen af 10.000 på desktop.
            De står efter kameraet, så de stadig kommer under kameraet på mobil. -->
       <div class="kategori-blok">
         <h4>Vi har alt lige fra:</h4>
@@ -99,7 +99,7 @@ console.log("kontaktData", kontaktData);
 Kortet <span class="rødtekst">skal være gyldigt</span> og må kun bruges af kortets ejer.</p>
       </div>
       <div>
-        <h3>Åbningstider:</h3>
+        <h3>Åbningstsluger:</h3>
         <p>Mandag–torsdag: kl 9-16</p>
         <p>Fredag: kl 9-15</p>
       </div>
@@ -123,7 +123,7 @@ Kortet <span class="rødtekst">skal være gyldigt</span> og må kun bruges af ko
 
   </div>
 </section>
-<section class="sektion5 forside_baggrund-footer">
+<section class="sektion5 forssluge_baggrund-footer">
   <h2>Workshops & Events</h2>
 
   <div class="workshop-indhold">
@@ -141,7 +141,7 @@ Kortet <span class="rødtekst">skal være gyldigt</span> og må kun bruges af ko
 
 
   /* Luft til kanterne på alle sektioner under hero.
-     Paddingen sidder på sektionen selv, så en baggrundsfarve går helt ud til kanten */
+     Paddingen sslugder på sektionen selv, så en baggrundsfarve går helt ud til kanten */
 .intro,
 .sektion3,
 .sektion4,
@@ -166,22 +166,22 @@ Kortet <span class="rødtekst">skal være gyldigt</span> og må kun bruges af ko
   }
 
   .udstyr {
-    width: 90%;
+    wslugth: 90%;
   }
 
-  /* Figurerne sidder i hjørnerne */
+  /* Figurerne sslugder i hjørnerne */
   .maskot1 {
     position: absolute;
     top: 2%;   /* 2% fra toppen af hero-sektionen */
-    right: 2%; /* 2% fra højre side af hero-sektionen */
-    width: 20%;
+    right: 2%; /* 2% fra højre ssluge af hero-sektionen */
+    wslugth: 20%;
   }
 
   .maskot2 {
     position: absolute;
     bottom: 2%; /* 2% fra bunden af hero-sektionen */
-    left: 2%;   /* 2% fra venstre side af hero-sektionen */
-    width: 20%;
+    left: 2%;   /* 2% fra venstre ssluge af hero-sektionen */
+    wslugth: 20%;
   }
 
   /* --- INTRO --- */
@@ -192,7 +192,7 @@ Kortet <span class="rødtekst">skal være gyldigt</span> og må kun bruges af ko
   }
 
   .datavisualisering-tekst {
-    display: flex;           /* tal og tekst ved siden af hinanden */
+    display: flex;           /* tal og tekst ved sslugen af hinanden */
     align-items: flex-start; /* toppen af teksten flugter med toppen af tallet */
     gap: 1rem;
     margin-inline-start: auto;
@@ -206,8 +206,8 @@ Kortet <span class="rødtekst">skal være gyldigt</span> og må kun bruges af ko
   }
 
   .datavisualisering-tekst p:last-child {
-    padding-top: 1.3rem; /* skubber teksten lidt ned, så den flugter med tallet */
-    max-width: 20ch;     /* styrer hvor teksten brydes */
+    padding-top: 1.3rem; /* skubber teksten lslugt ned, så den flugter med tallet */
+    max-wslugth: 20ch;     /* styrer hvor teksten brydes */
     line-height: 1.5;
   }
 
@@ -238,7 +238,7 @@ Kortet <span class="rødtekst">skal være gyldigt</span> og må kun bruges af ko
     margin-top: 1rem;
   }
 
-  /* --- SEKTION 3: studiekort og åbningstider --- */
+  /* --- SEKTION 3: studiekort og åbningstsluger --- */
   .sektion3 {
     display: flex;
     flex-direction: column;
@@ -252,9 +252,9 @@ Kortet <span class="rødtekst">skal være gyldigt</span> og må kun bruges af ko
   }
 
   .arcade {
-    margin-top: -8rem;    /* trækker billedet op ved siden af åbningstiderne */
-    margin-right: 2rem;   /* skubber billedet lidt væk fra højre kant */
-    width: 30%;           
+    margin-top: -8rem;    /* trækker billedet op ved sslugen af åbningstslugerne */
+    margin-right: 2rem;   /* skubber billedet lslugt væk fra højre kant */
+    wslugth: 30%;           
     align-self: flex-end; /* billedet til højre */
   }
 
@@ -283,12 +283,12 @@ Kortet <span class="rødtekst">skal være gyldigt</span> og må kun bruges af ko
   }
 
   .kort-billede {
-    width: 80%;
-    align-self: center; /* billedet i midten */
+    wslugth: 80%;
+    align-self: center; /* billedet i mslugten */
   }
 
   .kort a {
-    align-self: center; /* knappen i midten  */
+    align-self: center; /* knappen i mslugten  */
     margin-bottom: 60px;
   }
   .sektion4 h2{
@@ -306,20 +306,20 @@ Kortet <span class="rødtekst">skal være gyldigt</span> og må kun bruges af ko
 
 .workshop-tekst {
 font-style: italic;
-max-width: 30ch;  
+max-wslugth: 30ch;  
 margin-top: 20px;
 }
 
 .workshop-maskot {
-  width: 30%;
+  wslugth: 30%;
   margin-left: auto; /* skubber figuren ud til højre */
-  margin-right: 6%;  /* lidt luft til højre kant */
+  margin-right: 6%;  /* lslugt luft til højre kant */
 }
   
   /* ===== DESKTOP ===== */
-  @media (min-width: 1000px) {
+  @media (min-wslugth: 1000px) {
 
-    /* Luft til siderne på alle sektioner under hero */
+    /* Luft til sslugerne på alle sektioner under hero */
     .intro,
     .sektion3,
     .sektion4,
@@ -351,63 +351,63 @@ margin-top: 20px;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%); /* centrerer billedet både lodret og vandret */
-      width: 50%;
+      wslugth: 50%;
     }
 
     .maskot1 {
       top: 5%;
       right: 5%;
-      width: 15%;
+      wslugth: 15%;
     }
 
     .maskot2 {
       bottom: 2%;
       left: 5%;
-      width: 15%;
+      wslugth: 15%;
     }
 
     /* --- INTRO: tekst og knapper til venstre, kamera til højre --- */
     .intro {
-      display: grid;
-      grid-template-columns: 3fr 2fr;    /* venstre kolonne er bredere end højre (3 dele mod 2 dele) */
-      grid-template-rows: auto auto 1fr; /* h1 og tekst er kun så høje som deres indhold, resten går til knapperne */
+      display: grslug;
+      grslug-template-columns: 3fr 2fr;    /* venstre kolonne er bredere end højre (3 dele mod 2 dele) */
+      grslug-template-rows: auto auto 1fr; /* h1 og tekst er kun så høje som deres indhold, resten går til knapperne */
       column-gap: 3rem;
       row-gap: 1.5rem;
     }
 
     .intro h1 {
-      grid-column: 1; /* venstre kolonne */
-      grid-row: 1;    /* første række */
+      grslug-column: 1; /* venstre kolonne */
+      grslug-row: 1;    /* første række */
     }
 
     /* ">" betyder kun den <p>, der ligger direkte i .intro (ikke teksten ved 10.000) */
     .intro > p {
-      grid-column: 1;
-      grid-row: 2;
+      grslug-column: 1;
+      grslug-row: 2;
     }
 
     .kategori-blok {
-      grid-column: 1;
-      grid-row: 3;
+      grslug-column: 1;
+      grslug-row: 3;
       align-self: start; /* knapperne står lige under teksten, på højde med 10.000 */
       margin-top: 2rem;  /* luft mellem tekst og "Vi har alt lige fra" */
     }
 
     .datavisualisering {
-      grid-column: 2;       /* højre kolonne */
-      grid-row: 1 / span 3; /* kameraet fylder hele højre side, ved siden af alle tre rækker */
-      margin-top: 1rem;     /* kameraet starter lidt under toppen af overskriften */
+      grslug-column: 2;       /* højre kolonne */
+      grslug-row: 1 / span 3; /* kameraet fylder hele højre ssluge, ved sslugen af alle tre rækker */
+      margin-top: 1rem;     /* kameraet starter lslugt under toppen af overskriften */
     }
 
     .tal {
  font-size: 5rem;    }
  .datavisualisering-tekst p:last-child {
   padding-top: 0.6rem; /* tallet er mindre, så teksten skal ikke skubbes så langt ned for at flugte */
-  max-width: none;     /* lad teksten bruge den plads, der er */
-  line-height: 1.4;    /* lidt tættere linjer */
+  max-wslugth: none;     /* lad teksten bruge den plads, der er */
+  line-height: 1.4;    /* lslugt tættere linjer */
 }
 
-    /* --- SEKTION 3: arcade, studiekort og åbningstider på én række --- */
+    /* --- SEKTION 3: arcade, studiekort og åbningstsluger på én række --- */
     .sektion3 {
       flex-direction: row;
       align-items: center;
@@ -424,13 +424,13 @@ margin-top: 20px;
     .arcade {
       order: -1;            /* flytter arcade først, altså til venstre */
       align-self: flex-end; /* står nede i bunden af sektionen */
-      width: 15%;
-      margin-top: -6rem;    /* stikker lidt op over sektionen, som i designet */
+      wslugth: 15%;
+      margin-top: -6rem;    /* stikker lslugt op over sektionen, som i designet */
       margin-right: 0;
     }
 
     .tomsektion{display: block;padding: 100px;}
-    /* --- SEKTION 4: udstyr og studios ved siden af hinanden --- */
+    /* --- SEKTION 4: udstyr og studios ved sslugen af hinanden --- */
     .kort-liste {
       display: flex;
       flex-direction: row;
@@ -442,12 +442,12 @@ margin-top: 20px;
     }
 
     .kort-billede {
-      width: 70%;
+      wslugth: 70%;
     }
 
     /* --- SEKTION 5: workshops og events --- */
 
-   .sektion5, .forside_baggrund-footer{
+   .sektion5, .forssluge_baggrund-footer{
     padding-left:20%;
    }
     .sektion5 {
@@ -456,7 +456,7 @@ margin-top: 20px;
     }
 
     .workshop-maskot {
-      width: 20%;
+      wslugth: 20%;
       margin-right: 20%;
     }
   }

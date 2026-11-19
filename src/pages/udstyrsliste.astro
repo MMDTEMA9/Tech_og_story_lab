@@ -4,6 +4,7 @@ import "../styles/global.css";
 import { Image } from "astro:assets";
 import maskot1 from "../assets/maskot1.webp";
 import PageLayout from "../layouts/PageLayout.astro";
+import fugl from "../assets/tilbagefugl.png";
 
 const apiurl = "https://hycvaeerhjimzwdnycyq.supabase.co/rest/v1/";
 //Basis-URL'en til vores Supabase-database. URL'en bruges som start-adresse i både udstyrResponse og kontaktResponse.
@@ -30,7 +31,7 @@ console.log("udstyrData", udstyrData);
 <PageLayout title="Udstyrsliste">
         <section>
 			<div class="titel_container">
-				<!-- <Image src”() alt=”logo”/>  ret når billeder er tilføjet til assets -->
+					<Image src={fugl} alt="fugl som viser vej tilbage" />
 				<h1>Alt udstyr - Bookes fysiskt i lab </h1>
 			</div>
 			<div>
@@ -97,6 +98,12 @@ section{
 /* STYLING OG LAYOUT AF TITEL OG FUGLE-LOGOET */
 .titel_container{
 	margin: 2rem;
+	display: grid; 
+	grid-template-columns: auto auto;
+}
+.titel_container img{
+	width:50px;
+	height:50px;
 }
 
 /* Styling af overblikstekst (den tekst om ligger over udstyret f.eks kategori og status) */
