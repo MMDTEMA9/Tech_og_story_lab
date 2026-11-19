@@ -1,0 +1,164 @@
+---
+/* Importerer PageLayout, som er vores layout for alle siderne.
+   Det er her, vi har header, footer og global.css. */
+import PageLayout from "../layouts/PageLayout.astro";
+import "../styles/global.css";
+
+// Astros værktøj til at vise billeder
+import { Image } from "astro:assets";
+
+// Vores egne billeder fra assets-mappen
+import tilbagefugl from "../assets/tilbagefugl.png";
+import hovedprojekt from "../assets/Detailview-billeder/Hovedprojekt.png";
+import portræt from "../assets/Detailview-billeder/Portræt.png";
+import kaffekop from "../assets/Detailview-billeder/Kaffekop.png";
+import person from "../assets/Detailview-billeder/Person.png";
+import kortfilm from "../assets/Detailview-billeder/Kortfilm.png";
+
+// Basis-URL'en til vores Supabase-database
+const apiurl = "https://hycvaeerhjimzwdnycyq.supabase.co/rest/v1/";
+
+// Vi har to tabeller, og derfor laver vi to variabler
+const udstyrTableName = "udstyr";
+const kontaktTableName = "kontakt";
+
+// Vores API-nøgle fra Supabase
+const key = "sb_publishable_ci0x6ZnxAsDcDBjvVDKdXA_dC-IEzLE";
+
+const options = {
+  headers: {
+    apikey: key
+  }
+};
+
+const udstyrResponse = await fetch(apiurl + udstyrTableName, options);
+const udstyrData = await udstyrResponse.json();
+
+const kontaktResponse = await fetch(apiurl + kontaktTableName, options);
+const kontaktData = await kontaktResponse.json();
+
+// Viser det første produkt indtil linket fra listview virker
+const produkt = udstyrData[0];
+---
+
+<PageLayout title="Detailview">
+
+  <!-- Produktet. Navn og billede kommer fra Supabase -->
+  <section class="sektion1">
+    <a href="/udstyrsliste">
+      <Image src={tilbagefugl} alt="Tilbage til udstyrslisten" class="tilbagefugl" />
+    </a>
+    <h2 class="h2_special_lyserød">{produkt.name}</h2>
+    <img class="produkt-billede" src={produkt.image} alt={produkt.name} />
+  </section>
+
+  <section class="sektion2">
+    <h2>KONTAKT MATHILDA LAVER</h2>
+  </section>
+
+  <!-- Projekter taget med udstyret -->
+  <section class="sektion3 gradient_pink-salmon-lyserød-baggrundsfarve">
+    <p class="skraa-baand">Taget med kameraet</p>
+
+    <Image src={hovedprojekt} alt="Hovedprojekt taget med udstyret" />
+
+    <div>
+      <div class="smaa-billeder">
+        <Image src={portræt} alt="Portræt" />
+        <Image src={kaffekop} alt="Kaffekop på et bord" />
+        <Image src={kortfilm} alt="Udklip fra en kortfilm" />
+        <Image src={person} alt="Produktbillede" />
+      </div>
+      <h3>Studerendes projekter med kameraet</h3>
+    </div>
+  </section>
+
+</PageLayout>
+
+<style>
+  /***** MOBIL *****/
+
+  /* Sektion 1 */
+  .sektion1 {
+    background-color: var(--disco-950-farve);
+    padding: 1rem;
+  }
+
+  .tilbagefugl {
+    width: 2rem;
+  }
+
+  .sektion1 h2 {
+    text-align: center;
+  }
+
+  .produkt-billede {
+    width: 80%;
+    margin-inline: auto;
+  }
+
+  /* Sektion 3 */
+  .sektion3 {
+    position: relative; /* så båndet placeres i forhold til sektionen */
+    overflow: hidden;   /* skjuler det af båndet, der stikker ud */
+    display: grid;
+    gap: 2rem;
+    padding: 6rem 1rem 2rem;
+  }
+
+  .sektion3 h3 {
+    color: var(--disco-950-farve);
+  }
+
+  /* Det grønne bånd i hjørnet */
+  .skraa-baand {
+    position: absolute;
+    top: 2rem;
+    left: -4rem;
+    width: 16rem;
+    padding: 0.75rem 0;
+    background-color: var(--neongrøn-farve);
+    color: var(--disco-950-farve);
+    font-weight: bold;
+    font-style: italic;
+    text-align: center;
+    transform: rotate(-45deg);
+  }
+
+  /* De 4 små billeder, 2 og 2 */
+  .smaa-billeder {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .smaa-billeder img {
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+
+
+  @media (min-width: 1000px) {
+    .produkt-billede {
+      width: 50%;
+    }
+
+    /* Stort billede til venstre, små billeder til højre */
+    .sektion3 {
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      padding: 8rem 5rem 4rem;
+    }
+
+    .skraa-baand {
+      top: 4rem;
+      left: -5rem;
+      width: 22rem;
+      padding: 1.5rem 0;
+    }
+    .tilbagefugl {
+    width: 6rem;
+  }
+  }
+</style>
