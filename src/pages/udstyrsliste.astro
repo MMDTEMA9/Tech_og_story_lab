@@ -1,9 +1,9 @@
 ---
 import UdstyrList from "../componenter/UdstyrList.astro";
 import "../styles/global.css";
-import Header from "../componenter/Header.astro";
 import { Image } from "astro:assets";
 import maskot1 from "../assets/maskot1.webp";
+import PageLayout from "../layouts/PageLayout.astro";
 
 const apiurl = "https://hycvaeerhjimzwdnycyq.supabase.co/rest/v1/";
 //Basis-URL'en til vores Supabase-database. URL'en bruges som start-adresse i både udstyrResponse og kontaktResponse.
@@ -27,17 +27,7 @@ const udstyrData = await udstyrResponse.json();
 console.log("udstyrData", udstyrData);
 
 ---
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<Header/>
+<PageLayout title="Udstyrsliste">
         <section>
 			<div class="titel_container">
 				<!-- <Image src”() alt=”logo”/>  ret når billeder er tilføjet til assets -->
@@ -56,17 +46,22 @@ console.log("udstyrData", udstyrData);
     			<button class="filter_knap">Kamera stabiliator <span>3</span></button>
     			<button class="filter_knap">Tripods, monopods og andre stativer <span>3</span></button>
 			</div>
-			<div class="grid_1-1-1">
+			<div class="grid_1-1">
 				<p class="Filtering_tekst Søgning_tekst">Søg fx "mikrofon"</p>
-				<div></div>
-				<p class="toggle_tekst">Vis kun ledige</p>
+				<div class="toggle_tekst">
+					<div></div>
+					<p>Vis kun ledige</p>
+				</div>
 			 </div>
 
 		</section>
-		<section>
+		<!-- Udstyr -->
+		<section class="tool_section">
 			<div class="overblik_container">
+			<div class="image_wrapper">
 				<p class="Filtering_tekst">FOTO</p>
 				<p class="Filtering_tekst">UDSTYR</p>
+			</div>
 				<p class="Filtering_tekst">KATEGORI</p>
 				<p class="Filtering_tekst">STATUS</p>
 				<p class="Filtering_tekst">LÅNETID</p>
@@ -89,20 +84,16 @@ console.log("udstyrData", udstyrData);
 				<Image src={maskot1} alt="maskot"/>
 			</div>			
 		</section>
-	</body>
-<!-- <script>
-const valgtKategori = new URLSearchParams(window.location.search).get("kategori");
-</script> -->
-
-</html>
+</PageLayout>
 <style>
 /* Mobil */
 
 /* Generelt på mobil */
 section{
-	padding-inline: 2rem;
+	padding-inline: 1rem;
 	margin-top: 4rem;
 }
+
 /* STYLING OG LAYOUT AF TITEL OG FUGLE-LOGOET */
 .titel_container{
 	margin: 2rem;
@@ -113,30 +104,25 @@ section{
 	color: #6D717F;
 	font-weight: 400;
 	font-size: 1rem;
-}
-.overblik_container{
- display: flex; /* Gør det muligt at bruge flexbox-egenskaber */
- flex-direction: row; /* Lægger elementerne vandret */
- align-items: center; /* Centrerer teksten lodret på linjen */
- gap: 1rem; 
+	
 }
 /******************************************************/
+
+
 /* Style på filter knapper */
 .filter_knap:hover {
 	background-color: var(--disco-950-farve);
 	color: var(--baggrundsfarve);
+	span{
+		color: var(--pink-salmon-lyserød);
+	}
 }
-.filter_knap span:hover {
-  margin-left: 0.25rem;
-  color: var(--pink-salmon-lyserød);
-}
-
 /**********/
 
 /* Layout af søgefunktion, og toggel, samt style */
-.grid_1-1-1{
+.grid_1-1{
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-columns: 1fr 1fr;
 	grid-template-rows: 1fr ;
 	margin-block: 1rem;
 	margin-inline: 1rem;
@@ -149,20 +135,45 @@ section{
 	background-color: #FFFFFF;
 	padding: 10px;
 }
-.grid_1-1-1 > div {
+.toggle_tekst{
+	display: grid;
+grid-template-columns: 1fr 1fr;
+}
+
+.toggle_tekst div {
+	display: flex;
   width: 36px;
   height: 20px;
   background-color: var(--disco-950-farve);
   border-radius: 4px;
-  place-self: end;
+  place-self: center right;
 }
-.toggle_tekst{
+.toggle_tekst p{
   color: var(--disco-950-farve);
   font-size: 0.875rem;
   font-weight: bold;
-  place-self: center;
+  display: flex;
+  align-items: center;    
+  
 }
 /**************************************************/
+
+/* LAYOUT AF OVERBLIK CONTAINER */
+.overblik_container{
+	display: grid;
+  grid-template-columns: 1fr 1fr auto auto ;
+  gap: 4px;
+}
+ .image_wrapper{
+	display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto;
+    grid-column: 1 ;
+    gap: 4px;
+  }
+
+/***************/
+
 /* STYLING AF GRADIENT DIV */
 .nederste_sektion{
 text-align: center;
@@ -172,36 +183,25 @@ color: var(--disco-950-farve);
 } 
 .nederste_sektion h3{
 color: var(--disco-950-farve);
+
 }
 
 
 
-/* Desktop style */
-@media (min-width: 768px) {
-.grid_1-1-1{
-	display: none;
-}
-/* LAYOUT PÅ KOMPONT OG OVERBLIK AF INFORMATIONER */
-.overblik_container,
-.Udstyrskomponet {
-  display: grid;
-  grid-template-columns: 80px 2fr 1.2fr 2.2fr 1.2fr auto;
-  align-items: center;
-}
-/* 
-80px: Fast bredde til FOTO-kolonnen.
-2fr: UDSTYR (får god plads til produktnavne).
-1.2fr: KATEGORI.
-2.2fr: STATUS (plads til både badge og tekst ved siden af).
-1.2fr: LÅNETID.
-auto: Tilpasser sig automatisk bredden på knappen SE UDSTYR ude til højre. */
-/***********************/
+/***** DESKTOP STYLE *****/
+
 /* LAYOUT AF NEDERSTE SEKTION */
+@media (min-width: 768px){
 .nederste_sektion div{
 display: grid;
 grid-template-columns: 1fr 1fr;
 }
+/* LAYOUT AF OVERBLIK CONTAINER */
+.overblik_container{
+	display: grid;
+  grid-template-columns: 2fr 1fr 1.5fr 1fr 1fr;
 }
+ }
 </style>
 
   

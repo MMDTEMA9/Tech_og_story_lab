@@ -3,20 +3,77 @@ const{data} = Astro.props;
 ---
 
 <article>
-    <img src={data.image} alt={`Billede af ${data.name}`} />
-    <p>{data.name}</p>
+    <div class="image_wrapper">
+        <img src={data.image} alt={`Billede af ${data.name}`} />
+        <p>{data.name}</p>
+    </div>
+
      <p>{data.category}</p>
-    {data.pickup ? <p class="status-ledig">Ledig</p> : <p class="status-udlånt">Ikke ledig</p>}
+
+     <div class="is_available">
+         {data.pickup ? <p class="status-ledig">Ledig</p> : <p class="status-udlånt">Ikke ledig</p>}
+         <p class="pill_tag"> Kan hentes i dag</p>
+        </div>
      <p>{data.laanetid}</p>
     <a href={`/Udstyr/${data.slug}`} class="knap_se-udstyr">Se udstyr</a>
 </article>
 <style>
- article{
-display: grid;
-  grid-template-columns: 80px 2fr 1.2fr 2.2fr 1.2fr auto;
-  align-items: center;
-   gap: 24px;
+    article{
+        display: grid;
+        grid-template-columns: 1fr 1fr auto auto ;
+         grid-template-rows: auto auto ; 
+        gap: 8px;
+        margin-block: 1rem;
+
+        .image_wrapper {
+            display: grid;
+            grid-template-columns: 25% auto; /* Styrre hvor meget billedet skal fylde (25%) i den ene kolonne */
+            grid-template-rows: auto;
+            grid-column: 1 ;
+            overflow: hidden;
+            gap: 4px;
+        }
+
+        .knap_se-udstyr{
+            display: flex;
+            grid-column: span 5;
+            justify-content: center;
+            width: 100%; /*Define the size*/ 
+        
+        }
+        .pill_tag{
+            font-size: .5rem;
+            color: #6D717F;
+	        font-weight: bold;
+        }
+        p{
+            color: var(--disco-950-farve);
+            font-size: var(--h3-color);
+            font-weight: 700;
+        }
     }
+        @media (min-width: 768px){
+        article{
+            display: grid;
+            grid-template-columns: 2fr 1fr 1.5fr 1fr 1fr; 
+             grid-template-rows: 1fr;
+             gap: 1rem;
+             
+            .knap_se-udstyr{
+                grid-column: 5; /* Gør knappen kan komme op på siden af af de andre kolonner, det bliver fra to rækker til en række */
+                 width:100px; 
+        
+        }
+        .pill_tag{
+            font-size: 1rem;
+        }
+    }
+}
+
+
+    
+
+
 
 </style>
 
