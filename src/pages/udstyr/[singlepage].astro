@@ -34,10 +34,10 @@ export async function getStaticPaths() {
   const udstyrResponse = await fetch(apiurl + udstyrTableName, options);
   const udstyrData = await udstyrResponse.json();
 
-  return udstyrData.map((produkt) => ({
-    params: { slug: String(produkt.slug) },
-    props: { produkt, udstyrData },
-  }));
+ return udstyrData.map((produkt) => ({
+  params: { singlepage: String(produkt.id) },
+  props: { produkt, udstyrData },
+}));
 }
 
 // Det produkt, man har klikket på, og alt udstyret
@@ -60,7 +60,7 @@ const { produkt, udstyrData } = Astro.props;
   </section>
 
   <!-- Projekter taget med udstyret -->
-  <section class="sektion3 gradient_pink-salmon-lyserød baggrundsfarve">
+  <section class="sektion3 gradient_pink-salmon-lyserød-baggrundsfarve">
     <p class="skraa-baand">Taget med kameraet</p>
 
     <Image src={hovedprojekt} alt="Hovedprojekt taget med udstyret" />
@@ -80,9 +80,9 @@ const { produkt, udstyrData } = Astro.props;
   <section class="sektion4">
     <h2>Andet udstyr</h2>
     <div class="kort-liste">
-      <UdstyrKort img={udstyrData[0].image} headline={udstyrData[0].name} slug={udstyrData[0].slug} />
-      <UdstyrKort img={udstyrData[1].image} headline={udstyrData[1].name} slug={udstyrData[1].slug} />
-      <UdstyrKort img={udstyrData[2].image} headline={udstyrData[2].name} slug={udstyrData[2].slug} />
+<UdstyrKort img={udstyrData[0].image} headline={udstyrData[0].name} id={udstyrData[0].id} />
+<UdstyrKort img={udstyrData[1].image} headline={udstyrData[1].name} id={udstyrData[1].id} />
+<UdstyrKort img={udstyrData[2].image} headline={udstyrData[2].name} id={udstyrData[2].id} />
     </div>
   </section>
 
